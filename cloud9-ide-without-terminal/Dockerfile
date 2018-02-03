@@ -26,7 +26,7 @@ RUN apt-get install -y nodejs
     
 # ------------------------------------------------------------------------------
 # Install Cloud9
-RUN git clone ssh://vchavkov@git.assistance.bg:29418/c9-core /cloud9
+RUN git clone git@github.com:vchavkov/c9-core.git /cloud9
 WORKDIR /cloud9
 RUN scripts/install-sdk.sh
 
