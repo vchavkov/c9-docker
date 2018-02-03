@@ -6,7 +6,13 @@ LABEL maintainer="vchavkov@assistance.bg"
 # Install Supervisor.
 RUN \
   apt-get update && \
-  apt-get install -y apt-utils gnupg gnupg2 supervisor curl wget && \
+  apt-get install -y apt-utils && \
+  apt-get install -y gnupg && \
+  apt-get install -y gnupg2 && \
+  apt-get install -y supervisor && \
+  apt-get install -y curl && \
+  apt-get install -y wget && \
+  apt-get install -y git-core && \
   rm -rf /var/lib/apt/lists/* && \
   sed -i 's/^\(\[supervisord\]\)$/\1\nnodaemon=true/' /etc/supervisor/supervisord.conf
 
