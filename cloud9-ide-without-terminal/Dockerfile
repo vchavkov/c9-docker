@@ -1,6 +1,4 @@
-# ------------------------------------------------------------------------------
-# Based on a work at https://github.com/docker/docker.
-# ------------------------------------------------------------------------------
+
 # Pull base image.
 FROM debian
 MAINTAINER Vladimir Chavkov <vchavkov@assistance.bg>
