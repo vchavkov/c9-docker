@@ -1,32 +1,50 @@
 
 # Pull base image.
 FROM debian
-MAINTAINER Vladimir Chavkov <vchavkov@assistance.bg>
+LABEL maintainer="vchavkov@assistance.bg"
 
 # Install Supervisor.
 RUN \
   apt-get update && \
-  apt-get install -y supervisor && \
+  apt-get install -y apt-utils supervisor curl wget && \
   rm -rf /var/lib/apt/lists/* && \
   sed -i 's/^\(\[supervisord\]\)$/\1\nnodaemon=true/' /etc/supervisor/supervisord.conf
 
 # Define mountable directories.
 VOLUME ["/etc/supervisor/conf.d"]
 
-# ------------------------------------------------------------------------------
-# Security changes
-# - Determine runlevel and services at startup [BOOT-5180]
+# Determine runlevel and services at startup [BOOT-5180]
 RUN update-rc.d supervisor defaults
-
-# - Check the output of apt-cache policy manually to determine why output is empty [KRNL-5788]
-RUN apt-get update | apt-get upgrade -y
-
-# - Install a PAM module for password strength testing like pam_cracklib or pam_passwdqc [AUTH-9262]
-RUN apt-get install libpam-cracklib -y
-RUN ln -s /lib/x86_64-linux-gnu/security/pam_cracklib.so /lib/security
 
 # Define working directory.
 WORKDIR /etc/supervisor/conf.d
+
+# ------------------------------------------------------------------------------
+# Install Node.js
+RUN curl -sL https://deb.nodesource.com/setup | bash -
+RUN apt-get install -y nodejs
+    
+# ------------------------------------------------------------------------------
+# Install Cloud9
+RUN git clone ssh://vchavkov@git.assistance.bg:29418/c9-core /cloud9
+WORKDIR /cloud9
+RUN scripts/install-sdk.sh
+
+# Tweak standlone.js conf
+RUN sed -i -e 's_127.0.0.1_0.0.0.0_g' /cloud9/configs/standalone.js 
+
+# Add supervisord conf
+ADD conf/cloud9.conf /etc/supervisor/conf.d/
+
+# ------------------------------------------------------------------------------
+# Add volumes
+RUN mkdir /workspace
+VOLUME /workspace
+
+# ------------------------------------------------------------------------------
+# Expose ports.
+EXPOSE 80
+EXPOSE 3000
 
 # ------------------------------------------------------------------------------
 # Start supervisor, define default command.
