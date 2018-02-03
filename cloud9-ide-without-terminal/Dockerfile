@@ -1,14 +1,12 @@
 
 # Pull base image.
-FROM ubuntu
+FROM tutum/ubuntu:trusty
 LABEL maintainer="vchavkov@assistance.bg"
 
 # Install Supervisor.
 RUN \
   apt-get update && \
-  apt-get install -y supervisor && \
-  apt-get install -y curl && \
-  apt-get install -y git-core && \
+  apt-get install git curl build-essential supervisor && \
   rm -rf /var/lib/apt/lists/* && \
   sed -i 's/^\(\[supervisord\]\)$/\1\nnodaemon=true/' /etc/supervisor/supervisord.conf
 
