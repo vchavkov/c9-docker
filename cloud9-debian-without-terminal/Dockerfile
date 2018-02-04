@@ -19,8 +19,8 @@ WORKDIR /etc/supervisor/conf.d
 
 # ------------------------------------------------------------------------------
 # Install Node.js
-RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash
-RUN nvm install 4
+RUN curl -sL https://deb.nodesource.com/setup | bash -
+RUN apt-get install -y nodejs
 RUN node -v
 RUN npm -v
     
