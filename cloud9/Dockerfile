@@ -7,10 +7,9 @@ ENV C9_PASS=${C9_PASS};
 
 # Install Supervisor.
 RUN \
-    apt-get update && apt-get -y install curl build-essential supervisor git && \
-    sed -i 's/^\(\[supervisord\]\)$/\1\nnodaemon=true/' /etc/supervisor/supervisord.conf && \
-    curl -sL https://deb.nodesource.com/setup_8.x | -E bash - && \
-    apt-get install -y nodejs
+    echo "deb http://deb.nodesource.com/node_4.x stretch main" >> /etc/apt/sources.list && \
+    apt-get update && apt-get -y install curl build-essential supervisor git nodejs && \
+    sed -i 's/^\(\[supervisord\]\)$/\1\nnodaemon=true/' /etc/supervisor/supervisord.conf
 
 # Define mountable directories.
 VOLUME ["/etc/supervisor/conf.d"]
@@ -32,7 +31,7 @@ RUN scripts/install-sdk.sh
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Tweak standlone.js conf
-RUN sed -i -e 's_127.0.0.1_0.0.0.0_g' /cloud9/configs/standalone.js 
+RUN sed -i -e 's_127.0.0.1_0.0.0.0_g' /cloud9/configs/standalone.js
 
 # Add supervisord conf
 ADD conf/cloud9.conf /etc/supervisor/conf.d/
