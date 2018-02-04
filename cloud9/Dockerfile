@@ -8,7 +8,7 @@ ENV C9_PASS=${C9_PASS};
 # Install Supervisor.
 RUN \
     echo "deb http://deb.nodesource.com/node_4.x stretch main" >> /etc/apt/sources.list && \
-    apt-get update && apt-get -y install curl build-essential supervisor git nodejs && \
+    apt-get update && apt-get -y --allow-unauthenticated install curl build-essential supervisor git nodejs && \
     sed -i 's/^\(\[supervisord\]\)$/\1\nnodaemon=true/' /etc/supervisor/supervisord.conf
 
 # Define mountable directories.
