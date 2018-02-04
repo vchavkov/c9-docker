@@ -28,6 +28,9 @@ RUN git clone https://github.com/vchavkov/c9-core.git /cloud9
 WORKDIR /cloud9
 RUN scripts/install-sdk.sh
 
+RUN node -v
+RUN npm -v
+
 # ------------------------------------------------------------------------------
 # Clean up APT when done.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
@@ -46,7 +49,6 @@ VOLUME /workspace
 # ------------------------------------------------------------------------------
 # Expose ports.
 EXPOSE 80
-EXPOSE 3000
 
 # ------------------------------------------------------------------------------
 # Start supervisor, define default command.
