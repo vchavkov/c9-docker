@@ -37,7 +37,6 @@ RUN sed -i -e 's_127.0.0.1_0.0.0.0_g' /cloud9/configs/standalone.js
 
 # Add supervisord conf
 ADD conf/cloud9.conf /etc/supervisor/conf.d/
-# ADD http://git.assistance.bg:4321/?p=c9-docker.git;a=blob_plain;f=cloud9-ide-without-terminal/conf/cloud9.conf;hb=HEAD /etc/supervisor/conf.d/
 
 # ------------------------------------------------------------------------------
 # Add volumes
