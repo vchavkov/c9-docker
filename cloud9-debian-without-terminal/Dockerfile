@@ -4,9 +4,10 @@ LABEL maintainer="vchavkov@assistance.bg"
 
 # Install Supervisor.
 RUN \
-    apt-get update && apt-get -y install git curl build-essential supervisor nodejs && \
-    sed -i 's/^\(\[supervisord\]\)$/\1\nnodaemon=true/' /etc/supervisor/supervisord.conf
-
+    apt-get update && apt-get -y install curl build-essential supervisor git nodejs && \
+    sed -i 's/^\(\[supervisord\]\)$/\1\nnodaemon=true/' /etc/supervisor/supervisord.conf && \
+    ln -sf /usr/bin/nodejs /usr/bin/node
+    
 # Define mountable directories.
 VOLUME ["/etc/supervisor/conf.d"]
 
