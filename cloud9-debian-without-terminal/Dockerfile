@@ -19,17 +19,16 @@ WORKDIR /etc/supervisor/conf.d
 
 # ------------------------------------------------------------------------------
 # Install Node.js
-RUN curl -sL https://deb.nodesource.com/setup | bash -
-RUN apt-get install -y nodejs
+RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash
+RUN nvm install 4
+RUN node -v
+RUN npm -v
     
 # ------------------------------------------------------------------------------
 # Install Cloud9
 RUN git clone https://github.com/vchavkov/c9-core.git /cloud9
 WORKDIR /cloud9
 RUN scripts/install-sdk.sh
-
-RUN node -v
-RUN npm -v
 
 # ------------------------------------------------------------------------------
 # Clean up APT when done.
