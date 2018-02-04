@@ -2,6 +2,9 @@
 FROM debian
 LABEL maintainer="vchavkov@assistance.bg"
 
+ENV C9_USER=${C9_USER};
+ENV C9_PASS=${C9_PASS};
+
 # Install Supervisor.
 RUN \
     apt-get update && apt-get -y install curl build-essential supervisor git nodejs && \
