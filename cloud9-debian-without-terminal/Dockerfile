@@ -7,7 +7,7 @@ RUN \
     apt-get update && apt-get -y install curl build-essential supervisor git nodejs && \
     sed -i 's/^\(\[supervisord\]\)$/\1\nnodaemon=true/' /etc/supervisor/supervisord.conf && \
     ln -sf /usr/bin/nodejs /usr/bin/node
-    
+
 # Define mountable directories.
 VOLUME ["/etc/supervisor/conf.d"]
 
@@ -17,11 +17,6 @@ RUN update-rc.d supervisor defaults
 # Define working directory.
 WORKDIR /etc/supervisor/conf.d
 
-# ------------------------------------------------------------------------------
-# Install Node.js
-RUN node -v
-RUN npm -v
-    
 # ------------------------------------------------------------------------------
 # Install Cloud9
 RUN git clone https://github.com/vchavkov/c9-core.git /cloud9
