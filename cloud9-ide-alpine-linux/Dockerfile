@@ -7,14 +7,10 @@ ENV VERSION=v4.8.7 NPM_VERSION=2
 # ENV VERSION=v8.9.4 NPM_VERSION=5 YARN_VERSION=latest
 # ENV VERSION=v9.5.0 NPM_VERSION=5 YARN_VERSION=latest
 
-ENV PYTHON_VERSION=2.7.12-r0
-ENV PY_PIP_VERSION=8.1.2-r0
-ENV SUPERVISOR_VERSION=3.3.1
-
 # For base builds
 ENV CONFIG_FLAGS="--fully-static --without-npm" DEL_PKGS="libstdc++" RM_DIRS=/usr/include
 
-RUN apk add --no-cache git curl make gcc g++ python linux-headers binutils-gold gnupg libstdc++ && \
+RUN apk add --no-cache git supervisor curl make gcc g++ python linux-headers binutils-gold gnupg libstdc++ && \
   for server in pgp.mit.edu keyserver.pgp.com ha.pool.sks-keyservers.net; do \
     gpg --keyserver $server --recv-keys \
       94AE36675C464D64BAFA68DD7434390BDBE9B9C5 \
@@ -59,9 +55,6 @@ RUN apk add --no-cache git curl make gcc g++ python linux-headers binutils-gold 
     /root/.npm /root/.node-gyp /root/.gnupg /usr/lib/node_modules/npm/man \
     /usr/lib/node_modules/npm/doc /usr/lib/node_modules/npm/html /usr/lib/node_modules/npm/scripts
 
-RUN apk update && apk add -u python=$PYTHON_VERSION py-pip=$PY_PIP_VERSION
-RUN pip install supervisor==$SUPERVISOR_VERSION
-
 # ------------------------------------------------------------------------------
 # Install Cloud9
 RUN git clone https://github.com/vchavkov/c9-core.git /cloud9
@@ -72,7 +65,7 @@ RUN scripts/install-sdk.sh
 RUN sed -i -e 's_127.0.0.1_0.0.0.0_g' /cloud9/configs/standalone.js 
 
 # Add supervisord conf
-ADD conf/cloud9.conf /etc/supervisor/conf.d/
+ADD conf/cloud9.ini /etc/supervisor/conf.d/
 
 # ------------------------------------------------------------------------------
 # Add volumes
