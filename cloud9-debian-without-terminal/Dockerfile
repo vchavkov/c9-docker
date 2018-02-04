@@ -1,11 +1,10 @@
-
 # Pull base image.
 FROM debian
 LABEL maintainer="vchavkov@assistance.bg"
 
 # Install Supervisor.
 RUN \
-    apt-get update && apt-get -y install git curl build-essential supervisor && \
+    apt-get update && apt-get -y install git curl build-essential supervisor nodejs && \
     sed -i 's/^\(\[supervisord\]\)$/\1\nnodaemon=true/' /etc/supervisor/supervisord.conf
 
 # Define mountable directories.
@@ -19,8 +18,6 @@ WORKDIR /etc/supervisor/conf.d
 
 # ------------------------------------------------------------------------------
 # Install Node.js
-RUN curl -sL https://deb.nodesource.com/setup | bash -
-RUN apt-get install -y nodejs
 RUN node -v
 RUN npm -v
     
