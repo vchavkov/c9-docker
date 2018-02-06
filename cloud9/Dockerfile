@@ -9,7 +9,10 @@ ENV C9_PASS=${C9_PASS};
 RUN \
     echo "deb http://deb.nodesource.com/node_4.x stretch main" >> /etc/apt/sources.list && \
     apt-get update && apt-get -y --allow-unauthenticated install curl build-essential supervisor git nodejs && \
-    sed -i 's/^\(\[supervisord\]\)$/\1\nnodaemon=true/' /etc/supervisor/supervisord.conf
+    sed -i 's/^\(\[supervisord\]\)$/\1\nnodaemon=true/' /etc/supervisor/supervisord.conf && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
+    npm install grunt-cli bower grunt-sass
 
 # Define mountable directories.
 VOLUME ["/etc/supervisor/conf.d"]
@@ -24,14 +27,8 @@ WORKDIR /etc/supervisor/conf.d
 # Install Cloud9
 RUN git clone https://github.com/vchavkov/c9-core.git /cloud9
 WORKDIR /cloud9
-RUN scripts/install-sdk.sh
-
-# ------------------------------------------------------------------------------
-# Clean up APT when done.
-RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
-# Tweak standlone.js conf
-RUN sed -i -e 's_127.0.0.1_0.0.0.0_g' /cloud9/configs/standalone.js
+RUN scripts/install-sdk.sh && \
+sed -i -e 's_127.0.0.1_0.0.0.0_g' /cloud9/configs/standalone.js
 
 # Add supervisord conf
 ADD conf/cloud9.conf /etc/supervisor/conf.d/
