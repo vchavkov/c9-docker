@@ -38,13 +38,16 @@ ADD conf/cloud9.conf /etc/supervisor/conf.d/
 RUN mkdir /workspace
 VOLUME /workspace
 
+# Define working directory.
+WORKDIR /workspace
+
 # .ssh 
-RUN mkdir $HOME/.ssh
-ADD ssh/id_rsa $HOME/.ssh/id_rsa
-ADD ssh/id_rsa.pub $HOME/.ssh/id_rsa.pub
-ADD ssh/authorized_keys $HOME/.ssh/authorized_keys
-ADD ssh/known_hosts $HOME/.ssh/known_hosts
-RUN chmod 0600 $HOME/.ssh/id_rsa
+RUN mkdir .ssh
+ADD ssh/id_rsa .ssh/id_rsa
+ADD ssh/id_rsa.pub .ssh/id_rsa.pub
+ADD ssh/authorized_keys .ssh/authorized_keys
+ADD ssh/known_hosts .ssh/known_hosts
+RUN chmod 0600 .ssh/id_rsa
 
 # ------------------------------------------------------------------------------
 # Expose ports.
