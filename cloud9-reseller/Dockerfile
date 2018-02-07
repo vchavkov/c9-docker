@@ -35,16 +35,12 @@ ADD conf/cloud9.conf /etc/supervisor/conf.d/
 
 # ------------------------------------------------------------------------------
 # Add volumes
-RUN mkdir -p /workspace/.ssh
+RUN mkdir /workspace
 VOLUME /workspace
-
-# Add .ssh
-ADD /home/vchavkov/.ssh /workspace/
 
 # ------------------------------------------------------------------------------
 # Expose ports.
 EXPOSE 80
-EXPOSE 2368
 
 # ------------------------------------------------------------------------------
 # Start supervisor, define default command.
