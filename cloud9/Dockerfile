@@ -38,8 +38,9 @@ ADD conf/cloud9.conf /etc/supervisor/conf.d/
 RUN mkdir -p /workspace/.ssh
 VOLUME /workspace
 
-# Add .ssh
-ADD /home/vchavkov/.ssh /workspace/
+# .ssh 
+RUN cp -rv .ssh-keys .ssh && \
+chmod 0600 .ssh/id_rsa
 
 # ------------------------------------------------------------------------------
 # Expose ports.
