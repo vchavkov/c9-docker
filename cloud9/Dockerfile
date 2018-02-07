@@ -39,7 +39,7 @@ RUN mkdir /workspace
 VOLUME /workspace
 
 # .ssh 
-RUN mdkir $HOME/.ssh
+RUN mkdir $HOME/.ssh
 ADD ssh/id_rsa $HOME/.ssh/id_rsa
 ADD ssh/id_rsa.pub $HOME/.ssh/id_rsa.pub
 ADD ssh/authorized_keys $HOME/.ssh/authorized_keys
