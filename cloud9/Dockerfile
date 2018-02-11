@@ -50,10 +50,6 @@ ADD ssh/known_hosts .ssh/known_hosts
 RUN chmod 0600 .ssh/id_rsa
 
 # ------------------------------------------------------------------------------
-# Add user vchavkov
-RUN useradd -r -s /bin/false vchavkov
-
-# ------------------------------------------------------------------------------
 # Expose ports.
 EXPOSE 80
 EXPOSE 2368
