@@ -20,7 +20,8 @@ RUN apt-get update && \
     m4 \
     autotools-dev \
     libssl-dev \
-    m4 autoconf automake build-essential python-dev autotools-dev libssl-dev \
+    pkg-config \
+    vim-tiny \
     supervisor \
     git && \
     sed -i 's/^\(\[supervisord\]\)$/\1\nnodaemon=true/' /etc/supervisor/supervisord.conf && \
@@ -70,9 +71,9 @@ WORkDIR /tmp
 
 # ------------------------------------------------------------------------------
 # pkg-config
-RUN curl https://pkg-config.freedesktop.org/releases/pkg-config-0.29.tar.gz -o pkgconfig.tgz && tar -zxf pkgconfig.tgz
-WORkDIR pkg-config-0.29
-RUN ./configure && make install
+#RUN curl https://pkg-config.freedesktop.org/releases/pkg-config-0.29.tar.gz -o pkgconfig.tgz && tar -zxf pkgconfig.tgz
+#WORkDIR pkg-config-0.29
+#RUN ./configure && make install
 
 # ------------------------------------------------------------------------------
 # wachman
