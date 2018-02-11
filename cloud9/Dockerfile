@@ -27,6 +27,7 @@ RUN apt-get update && \
     vim-tiny \
     supervisor \
     tmux \
+    sqlite3 \
     git && \
     sed -i 's/^\(\[supervisord\]\)$/\1\nnodaemon=true/' /etc/supervisor/supervisord.conf && \
     apt-get clean && \
