@@ -37,7 +37,7 @@ RUN echo "deb http://dl.yarnpkg.com/debian/ stable main" >> /etc/apt/sources.lis
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 
 # install global nodejs modules
-RUN apt-get update && apt-get -y install nodejs yarn; && \
+RUN apt-get update && apt-get -y install nodejs yarn && \
 npm install -g grunt-cli bower grunt-sass
 
 # Define mountable directories.
