@@ -20,6 +20,7 @@ RUN apt-get update && \
     m4 \
     autotools-dev \
     libssl-dev \
+    m4 autoconf automake build-essential python-dev autotools-dev libssl-dev \
     supervisor \
     git && \
     sed -i 's/^\(\[supervisord\]\)$/\1\nnodaemon=true/' /etc/supervisor/supervisord.conf && \
