@@ -8,9 +8,9 @@ ENV C9_PASS=${C9_PASS};
 # Install Supervisor.
 RUN \
     echo "deb http://deb.nodesource.com/node_4.x stretch main" >> /etc/apt/sources.list && \
-    echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list && \
+    echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
     apt-get update && apt-get -y --allow-unauthenticated install \
-    curl build-essential supervisor git nodejs yarn vim-tiny && \
+    sudo curl build-essential supervisor git nodejs yarn vim-tiny && \
     sed -i 's/^\(\[supervisord\]\)$/\1\nnodaemon=true/' /etc/supervisor/supervisord.conf && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
