@@ -30,7 +30,10 @@ RUN apt-get update && \
     sqlite3 \
     git \
     top \
-    htop && \
+    nmap \
+    tcpdump \
+    mc \
+    unzip && \
     sed -i 's/^\(\[supervisord\]\)$/\1\nnodaemon=true/' /etc/supervisor/supervisord.conf && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
