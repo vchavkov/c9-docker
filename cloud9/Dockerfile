@@ -13,10 +13,7 @@ RUN \
     gnupg \
     gnupg1 \
     gnupg2 \
-    build-essential \
-    python-dev \
-    automake \
-    autoconf \
+    build-essential python-dev automake autoconf libtool m4 autoconf automake build-essential python-dev autotools-dev libssl-dev \
     supervisor \
     git \
     nodejs \
