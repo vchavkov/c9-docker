@@ -9,6 +9,7 @@ ENV C9_PASS=${C9_PASS};
 RUN apt-get update && \
     apt-get -y install \
     curl \
+    wget \
     gnupg \
     gnupg1 \
     gnupg2 \
@@ -21,8 +22,11 @@ RUN apt-get update && \
     autotools-dev \
     libssl-dev \
     pkg-config \
+    libev-dev \
+    libncurses5-dev \
     vim-tiny \
     supervisor \
+    tmux \
     git && \
     sed -i 's/^\(\[supervisord\]\)$/\1\nnodaemon=true/' /etc/supervisor/supervisord.conf && \
     apt-get clean && \
@@ -40,7 +44,7 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 
 # install global nodejs modules
 RUN apt-get update && apt-get -y install nodejs yarn && \
-npm install -g grunt-cli bower grunt-sass
+npm install -g grunt-cli bower grunt-sass tmux_install nak ptyjs collab
 
 # Define mountable directories.
 VOLUME ["/etc/supervisor/conf.d"]
@@ -88,8 +92,9 @@ RUN make install
 # Install Cloud9
 RUN git clone https://github.com/vchavkov/c9-core.git /cloud9
 WORKDIR /cloud9
-RUN scripts/install-sdk.sh && \
-sed -i -e 's_127.0.0.1_0.0.0.0_g' /cloud9/configs/standalone.js
+RUN scripts/install-sdk.sh
+
+RUN sed -i -e 's_127.0.0.1_0.0.0.0_g' /cloud9/configs/standalone.js
 
 # ------------------------------------------------------------------------------
 # Add volumes
