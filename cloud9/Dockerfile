@@ -21,7 +21,7 @@ RUN apt-get update && \
     autotools-dev \
     libssl-dev \
     supervisor \
-    git &&
+    git && \
     sed -i 's/^\(\[supervisord\]\)$/\1\nnodaemon=true/' /etc/supervisor/supervisord.conf && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
