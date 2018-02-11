@@ -7,24 +7,39 @@ ENV C9_PASS=${C9_PASS};
 
 # Install Supervisor.
 RUN \
-    echo "deb http://deb.nodesource.com/node_4.x stretch main" >> /etc/apt/sources.list && \
-    apt-get update && apt-get -y --allow-unauthenticated install \
+    apt-get update && apt-get -y install \
     curl \
     gnupg \
     gnupg1 \
     gnupg2 \
-    build-essential python-dev automake autoconf libtool m4 autoconf automake build-essential python-dev autotools-dev libssl-dev \
+    build-essential \
+    python-dev \
+    automake \
+    autoconf \
+    libtool \
+    m4 \
+    autotools-dev \
+    libssl-dev \
     supervisor \
     git \    
     vim-tiny && \
-    curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \    
-    echo "deb http://dl.yarnpkg.com/debian/ stable main" >> /etc/apt/sources.list && \
-    curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
-    apt-get update && apt-get -y install nodejs yarn && \
     sed -i 's/^\(\[supervisord\]\)$/\1\nnodaemon=true/' /etc/supervisor/supervisord.conf && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
-    npm install grunt-cli bower grunt-sass
+
+# ------------------------------------------------------------------------------
+# nodejs
+RUN echo "deb http://deb.nodesource.com/node_4.x stretch main" >> /etc/apt/sources.list
+RUN curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -   
+
+# ------------------------------------------------------------------------------
+# yarn
+RUN echo "deb http://dl.yarnpkg.com/debian/ stable main" >> /etc/apt/sources.list
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+
+# install global nodejs modules
+RUN apt-get update && apt-get -y install nodejs yarn; && \
+npm install -g grunt-cli bower grunt-sass
 
 # Define mountable directories.
 VOLUME ["/etc/supervisor/conf.d"]
