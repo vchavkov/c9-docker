@@ -19,7 +19,7 @@ RUN \
     nodejs \
     vim-tiny && \
     echo "deb http://dl.yarnpkg.com/debian/ stable main" >> /etc/apt/sources.list && \
-    curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - && \
+    curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
     apt-get update && apt-get -y install yarn && \
     sed -i 's/^\(\[supervisord\]\)$/\1\nnodaemon=true/' /etc/supervisor/supervisord.conf && \
     apt-get clean && \
