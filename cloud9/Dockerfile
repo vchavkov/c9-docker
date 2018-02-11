@@ -6,7 +6,8 @@ ENV C9_USER=${C9_USER};
 ENV C9_PASS=${C9_PASS};
 
 # Install Supervisor.
-RUN apt-get update && apt-get -y install \
+RUN apt-get update && \
+    apt-get -y install \
     curl \
     gnupg \
     gnupg1 \
@@ -20,8 +21,7 @@ RUN apt-get update && apt-get -y install \
     autotools-dev \
     libssl-dev \
     supervisor \
-    git \    
-    vim-tiny && \
+    git &&
     sed -i 's/^\(\[supervisord\]\)$/\1\nnodaemon=true/' /etc/supervisor/supervisord.conf && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
@@ -51,25 +51,25 @@ WORKDIR /etc/supervisor/conf.d
 # Add supervisord conf
 ADD conf/cloud9.conf /etc/supervisor/conf.d/
 
-# Define working directory.
-WORKDIR /root
-
 # ------------------------------------------------------------------------------
-# Add ssh keys
+# ssh keys
+WORKDIR /root
 RUN mkdir .ssh
-ADD ssh/id_rsa /root/.ssh/id_rsa
-ADD ssh/id_rsa.pub /root/.ssh/id_rsa.pub
-ADD ssh/authorized_keys /root/.ssh/authorized_keys
-ADD ssh/known_hosts /root/.ssh/known_hosts
-RUN chmod 0600 /root/.ssh/id_rsa
+ADD ssh/id_rsa .ssh/id_rsa
+ADD ssh/id_rsa.pub .ssh/id_rsa.pub
+ADD ssh/authorized_keys .ssh/authorized_keys
+ADD ssh/known_hosts .ssh/known_hosts
+RUN chmod 0600 .ssh/id_rsa
 
 # ------------------------------------------------------------------------------
 # Add .bashrc configuration
 ADD conf/.bashrc /root/
 
+# ------------------------------------------------------------------------------
+# wachman
 WORkDIR /tmp
 RUN git clone https://github.com/facebook/watchman.git
-RUN cd watchman
+WORkDIR /tmp/watchman
 RUN ./autogen.sh
 RUN ./configure
 RUN make
