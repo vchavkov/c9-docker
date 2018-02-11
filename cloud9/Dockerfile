@@ -14,6 +14,9 @@ RUN \
     gnupg1 \
     gnupg2 \
     build-essential \
+    python-dev \
+    automake \
+    autoconf \
     supervisor \
     git \
     nodejs \
@@ -34,21 +37,8 @@ RUN update-rc.d supervisor defaults
 
 # Define working directory.
 WORKDIR /etc/supervisor/conf.d
-
-# ------------------------------------------------------------------------------
-# Install Cloud9
-RUN git clone https://github.com/vchavkov/c9-core.git /cloud9
-WORKDIR /cloud9
-RUN scripts/install-sdk.sh && \
-sed -i -e 's_127.0.0.1_0.0.0.0_g' /cloud9/configs/standalone.js
-
 # Add supervisord conf
 ADD conf/cloud9.conf /etc/supervisor/conf.d/
-
-# ------------------------------------------------------------------------------
-# Add volumes
-RUN mkdir /workspace
-VOLUME /workspace
 
 # Define working directory.
 WORKDIR /root
@@ -65,6 +55,28 @@ RUN chmod 0600 /root/.ssh/id_rsa
 # ------------------------------------------------------------------------------
 # Add .bashrc configuration
 ADD conf/.bashrc /root/
+
+WORkDIR /tmp
+RUN git clone https://github.com/facebook/watchman.git
+RUN cd watchman
+RUN git checkout v4.7.0  # or whatever is now the latest stable release
+RUN ./autogen.sh
+RUN ./configure --enable-statedir=/tmp
+RUN make
+RUN make install
+RUN mv watchman /usr/local/bin/watchman
+
+# ------------------------------------------------------------------------------
+# Install Cloud9
+RUN git clone https://github.com/vchavkov/c9-core.git /cloud9
+WORKDIR /cloud9
+RUN scripts/install-sdk.sh && \
+sed -i -e 's_127.0.0.1_0.0.0.0_g' /cloud9/configs/standalone.js
+
+# ------------------------------------------------------------------------------
+# Add volumes
+RUN mkdir /workspace
+VOLUME /workspace
 
 # ------------------------------------------------------------------------------
 # Expose ports.
