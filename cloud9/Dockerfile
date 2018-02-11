@@ -81,7 +81,7 @@ RUN git clone https://github.com/facebook/watchman.git
 WORkDIR /tmp/watchman
 RUN ./autogen.sh
 RUN ./configure
-RUN make
+RUN make -j 32
 RUN make install
 
 # ------------------------------------------------------------------------------
