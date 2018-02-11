@@ -66,9 +66,16 @@ RUN chmod 0600 .ssh/id_rsa
 # Add .bashrc configuration
 ADD conf/.bashrc /root/
 
+WORkDIR /tmp
+
+# ------------------------------------------------------------------------------
+# pkg-config
+RUN curl https://pkg-config.freedesktop.org/releases/pkg-config-0.29.tar.gz -o pkgconfig.tgz && tar -zxf pkgconfig.tgz
+WORkDIR pkg-config-0.29
+RUN ./configure && make install
+
 # ------------------------------------------------------------------------------
 # wachman
-WORkDIR /tmp
 RUN git clone https://github.com/facebook/watchman.git
 WORkDIR /tmp/watchman
 RUN ./autogen.sh
