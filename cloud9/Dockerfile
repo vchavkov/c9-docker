@@ -44,7 +44,7 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 
 # install global nodejs modules
 RUN apt-get update && apt-get -y install nodejs yarn && \
-npm install -g grunt-cli bower grunt-sass tmux_install nak ptyjs collab
+npm install -g grunt-cli grunt-sass
 
 # Define mountable directories.
 VOLUME ["/etc/supervisor/conf.d"]
