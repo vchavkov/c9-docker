@@ -29,6 +29,8 @@ RUN apt-get update && \
     tmux \
     sqlite3 \
     git && \
+    top && \
+    htop && \
     sed -i 's/^\(\[supervisord\]\)$/\1\nnodaemon=true/' /etc/supervisor/supervisord.conf && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
@@ -99,13 +101,13 @@ RUN sed -i -e 's_127.0.0.1_0.0.0.0_g' /cloud9/configs/standalone.js
 
 # ------------------------------------------------------------------------------
 # Add volumes
-RUN mkdir /workspace
+RUN mkdir /workspace && \
+mkdir -p /var/log/cms
 VOLUME /workspace
 
 # ------------------------------------------------------------------------------
 # Expose ports.
 EXPOSE 80
-EXPOSE 2368
 
 # ------------------------------------------------------------------------------
 # Start supervisor, define default command.
