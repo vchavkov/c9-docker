@@ -29,7 +29,7 @@ RUN apt-get update && \
     tmux \
     sqlite3 \
     git \
-    top \
+    htop \
     nmap \
     tcpdump \
     mc \
