@@ -68,6 +68,10 @@ RUN sed -i -e 's_127.0.0.1_0.0.0.0_g' /cloud9/configs/standalone.js
 ADD conf/cloud9.ini /etc/supervisor/conf.d/
 
 # ------------------------------------------------------------------------------
+# Add user vchavkov
+RUN useradd -r -s /bin/false vchavkov
+
+# ------------------------------------------------------------------------------
 # Add volumes
 RUN mkdir /workspace
 VOLUME /workspace
