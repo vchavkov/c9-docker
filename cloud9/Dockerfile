@@ -6,8 +6,7 @@ ENV C9_USER=${C9_USER};
 ENV C9_PASS=${C9_PASS};
 
 # Install Supervisor.
-RUN \
-    apt-get update && apt-get -y install \
+RUN apt-get update && apt-get -y install \
     curl \
     gnupg \
     gnupg1 \
