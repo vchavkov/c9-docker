@@ -15,12 +15,12 @@ RUN \
     gnupg2 \
     build-essential python-dev automake autoconf libtool m4 autoconf automake build-essential python-dev autotools-dev libssl-dev \
     supervisor \
-    git \
-    nodejs \
+    git \    
     vim-tiny && \
+    curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \    
     echo "deb http://dl.yarnpkg.com/debian/ stable main" >> /etc/apt/sources.list && \
     curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
-    apt-get update && apt-get -y install yarn && \
+    apt-get update && apt-get -y install nodejs yarn && \
     sed -i 's/^\(\[supervisord\]\)$/\1\nnodaemon=true/' /etc/supervisor/supervisord.conf && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
