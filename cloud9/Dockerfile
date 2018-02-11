@@ -8,7 +8,8 @@ ENV C9_PASS=${C9_PASS};
 # Install Supervisor.
 RUN \
     echo "deb http://deb.nodesource.com/node_4.x stretch main" >> /etc/apt/sources.list && \
-    apt-get update && apt-get -y --allow-unauthenticated install curl build-essential supervisor git nodejs && \
+    apt-get update && apt-get -y --allow-unauthenticated install \
+    curl build-essential supervisor git nodejs vim-tiny && \
     sed -i 's/^\(\[supervisord\]\)$/\1\nnodaemon=true/' /etc/supervisor/supervisord.conf && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
@@ -33,21 +34,29 @@ sed -i -e 's_127.0.0.1_0.0.0.0_g' /cloud9/configs/standalone.js
 # Add supervisord conf
 ADD conf/cloud9.conf /etc/supervisor/conf.d/
 
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+
 # ------------------------------------------------------------------------------
 # Add volumes
 RUN mkdir /workspace
 VOLUME /workspace
 
 # Define working directory.
-WORKDIR /workspace
+WORKDIR /root
 
-# .ssh 
+# ------------------------------------------------------------------------------
+# Add ssh keys
 RUN mkdir .ssh
-ADD ssh/id_rsa .ssh/id_rsa
-ADD ssh/id_rsa.pub .ssh/id_rsa.pub
-ADD ssh/authorized_keys .ssh/authorized_keys
-ADD ssh/known_hosts .ssh/known_hosts
-RUN chmod 0600 .ssh/id_rsa
+ADD ssh/id_rsa /root/.ssh/id_rsa
+ADD ssh/id_rsa.pub /root/.ssh/id_rsa.pub
+ADD ssh/authorized_keys /root/.ssh/authorized_keys
+ADD ssh/known_hosts /root/.ssh/known_hosts
+RUN chmod 0600 /root/.ssh/id_rsa
+
+# ------------------------------------------------------------------------------
+# Add .bashrc configuration
+ADD conf/.bashrc /root/
 
 # ------------------------------------------------------------------------------
 # Expose ports.
