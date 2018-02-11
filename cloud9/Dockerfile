@@ -28,7 +28,8 @@ RUN apt-get update && \
     supervisor \
     tmux \
     sqlite3 \
-    git && \
+    git \
+    top \
     htop && \
     sed -i 's/^\(\[supervisord\]\)$/\1\nnodaemon=true/' /etc/supervisor/supervisord.conf && \
     apt-get clean && \
