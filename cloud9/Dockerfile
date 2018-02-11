@@ -59,7 +59,7 @@ ADD conf/.bashrc /root/
 WORkDIR /tmp
 RUN git clone https://github.com/facebook/watchman.git
 RUN cd watchman
-RUN git checkout v4.7.0  # or whatever is now the latest stable release
+#RUN git checkout v4.7.0  # or whatever is now the latest stable release
 RUN ./autogen.sh
 RUN ./configure --enable-statedir=/tmp
 RUN make
