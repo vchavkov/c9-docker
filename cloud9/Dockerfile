@@ -58,9 +58,10 @@ WORKDIR /root/.nvm
 RUN git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" origin`
 ADD conf/.bashrc /root/
 #RUN bash -c 'BASH_ENV=/etc/profile exec bash'
-RUN /root/.nvm/nvm.sh && \
-nvm install 6 && \
-npm install -g grunt-cli knex-migrator grunt-sass nodemon
+RUN chmod +x /root/.nvm/nvm.sh && \
+    /root/.nvm/nvm.sh && \
+    nvm install 6 && \
+    npm install -g grunt-cli knex-migrator grunt-sass nodemon
 
 # Define mountable directories.
 VOLUME ["/etc/supervisor/conf.d"]
