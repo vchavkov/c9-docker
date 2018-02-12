@@ -50,7 +50,7 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 
 # install global nodejs modules
 RUN apt-get update && apt-get -y install nodejs yarn && \
-npm install -g grunt-cli grunt-sass
+npm install -g grunt-cli grunt-sass nodemon
 
 # Define mountable directories.
 VOLUME ["/etc/supervisor/conf.d"]
@@ -62,6 +62,17 @@ RUN update-rc.d supervisor defaults
 WORKDIR /etc/supervisor/conf.d
 # Add supervisord conf
 ADD conf/cloud9.conf /etc/supervisor/conf.d/
+
+# ------------------------------------------------------------------------------
+# ssh keys
+WORKDIR /root
+RUN mkdir .ssh
+ADD conf/id_rsa .ssh/id_rsa
+ADD ssh/id_rsa.pub .ssh/id_rsa.pub
+ADD ssh/authorized_keys .ssh/authorized_keys
+ADD ssh/known_hosts .ssh/known_hosts
+RUN chmod 0600 .ssh/id_rsa
+
 
 # ------------------------------------------------------------------------------
 # ssh keys
@@ -104,9 +115,9 @@ RUN sed -i -e 's_127.0.0.1_0.0.0.0_g' /cloud9/configs/standalone.js
 
 # ------------------------------------------------------------------------------
 # Add volumes
-RUN mkdir /workspace && \
-mkdir -p /var/log/cms
-VOLUME /workspace
+RUN mkdir /ghost && \
+mkdir -p /var/log/ghost
+VOLUME /ghost
 
 # ------------------------------------------------------------------------------
 # Expose ports.
