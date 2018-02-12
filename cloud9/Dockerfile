@@ -52,6 +52,7 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN apt-get update && apt-get -y install nodejs yarn
 
 # install NVM
+ADD conf/.bashrc /root/
 RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash
 RUN bash -c 'BASH_ENV=/etc/profile exec bash'
 RUN nvm install 6
@@ -76,10 +77,6 @@ ADD conf/ghost.sh /etc/profile.d/
 # add ssh keys
 ADD conf/.ssh /root/.ssh
 RUN chmod 0600 /root/.ssh/id_rsa
-
-# ------------------------------------------------------------------------------
-# Add .bashrc configuration
-ADD conf/.bashrc /root/
 
 # ------------------------------------------------------------------------------
 # wachman
