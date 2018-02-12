@@ -69,9 +69,8 @@ ADD conf/ghost.sh /etc/profile.d/
 
 # ------------------------------------------------------------------------------
 # add ssh keys
-WORkDIR /root
-ADD conf/.ssh /root
-RUN chmod 0600 .ssh/id_rsa
+ADD conf/.ssh /root/.ssh
+RUN chmod 0600 /root/.ssh/id_rsa
 
 # ------------------------------------------------------------------------------
 # Add .bashrc configuration
