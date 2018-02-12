@@ -64,40 +64,22 @@ WORKDIR /etc/supervisor/conf.d
 ADD conf/cloud9.conf /etc/supervisor/conf.d/
 
 # ------------------------------------------------------------------------------
-# ssh keys
-WORKDIR /root
-RUN mkdir .ssh
-ADD conf/id_rsa .ssh/id_rsa
-ADD ssh/id_rsa.pub .ssh/id_rsa.pub
-ADD ssh/authorized_keys .ssh/authorized_keys
-ADD ssh/known_hosts .ssh/known_hosts
-RUN chmod 0600 .ssh/id_rsa
-
+# enable ghost cli
+ADD conf/ghost.sh /etc/profile.d/
 
 # ------------------------------------------------------------------------------
-# ssh keys
-WORKDIR /root
-RUN mkdir .ssh
-ADD ssh/id_rsa .ssh/id_rsa
-ADD ssh/id_rsa.pub .ssh/id_rsa.pub
-ADD ssh/authorized_keys .ssh/authorized_keys
-ADD ssh/known_hosts .ssh/known_hosts
+# add ssh keys
+WORkDIR /root
+ADD conf/.ssh /root
 RUN chmod 0600 .ssh/id_rsa
 
 # ------------------------------------------------------------------------------
 # Add .bashrc configuration
 ADD conf/.bashrc /root/
 
-WORkDIR /tmp
-
-# ------------------------------------------------------------------------------
-# pkg-config
-#RUN curl https://pkg-config.freedesktop.org/releases/pkg-config-0.29.tar.gz -o pkgconfig.tgz && tar -zxf pkgconfig.tgz
-#WORkDIR pkg-config-0.29
-#RUN ./configure && make install
-
 # ------------------------------------------------------------------------------
 # wachman
+WORkDIR /tmp
 RUN git clone https://github.com/facebook/watchman.git
 WORkDIR /tmp/watchman
 RUN ./autogen.sh
