@@ -52,8 +52,11 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN apt-get update && apt-get -y install nodejs yarn
 
 # install NVM
+
+RUN  git clone https://github.com/creationix/nvm.git "/root/.nvm"
+WORKDIR /root/.nvm
+RUN git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" origin`
 ADD conf/.bashrc /root/
-RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash
 RUN bash -c 'BASH_ENV=/etc/profile exec bash'
 RUN nvm install 6
 RUN npm install -g grunt-cli knex-migrator grunt-sass nodemon
