@@ -9,7 +9,6 @@ ENV C9_PASS=${C9_PASS};
 RUN apt-get update && \
     apt-get -y install \
     sudo \
-    chroot \
     curl \
     wget \
     gnupg \
