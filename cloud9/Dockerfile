@@ -100,7 +100,7 @@ RUN make install
 
 # ------------------------------------------------------------------------------
 # Install Cloud9
-RUN git clone https://github.com/vchavkov/c9-core.git /cloud9
+RUN git clone https://github.com/vchavkov/c9-core.git /home/vchavkov/cloud9
 WORKDIR /home/vchavkov/cloud9
 RUN scripts/install-sdk.sh
 
