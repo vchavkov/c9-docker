@@ -51,12 +51,15 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 # install global nodejs modules
 RUN apt-get update && apt-get -y install nodejs yarn
 
-# install NVM
+RUN useradd -m -p vchavkov -s /bin/bash vchavkov
 
+# install NVM
 RUN  git clone https://github.com/creationix/nvm.git "/root/.nvm"
 WORKDIR /root/.nvm
 RUN git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" origin`
+
 ADD conf/.bashrc /root/
+ADD conf/.bashrc /home/vchavkov/
 
 # Define mountable directories.
 VOLUME ["/etc/supervisor/conf.d"]
@@ -77,6 +80,9 @@ ADD conf/ghost.sh /etc/profile.d/
 # add ssh keys
 ADD conf/.ssh /root/.ssh
 RUN chmod 0600 /root/.ssh/id_rsa
+
+ADD conf/.ssh /home/vchavkov/.ssh
+RUN chmod 0600 /home/vchavkov/.ssh/id_rsa
 
 # ------------------------------------------------------------------------------
 # wachman
