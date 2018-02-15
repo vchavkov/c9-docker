@@ -51,6 +51,7 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 # install global nodejs modules
 RUN apt-get update && apt-get -y install nodejs yarn
 
+# create user vchavkov
 RUN useradd -m -p vchavkov -s /bin/bash vchavkov
 
 # install NVM
@@ -58,6 +59,7 @@ RUN  git clone https://github.com/creationix/nvm.git "/root/.nvm"
 WORKDIR /root/.nvm
 RUN git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" origin`
 
+# .bashrc
 ADD conf/.bashrc /root/
 ADD conf/.bashrc /home/vchavkov/
 
