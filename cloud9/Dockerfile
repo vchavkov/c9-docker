@@ -8,6 +8,7 @@ ENV C9_PASS=${C9_PASS};
 # Install Supervisor.
 RUN apt-get update && \
     apt-get -y install \
+    sudo \
     curl \
     wget \
     gnupg \
@@ -53,6 +54,7 @@ RUN apt-get update && apt-get -y install nodejs yarn
 
 # create user vchavkov
 RUN useradd -m -p vchavkov -s /bin/bash vchavkov
+RUN echo "vchavkov ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
 # install NVM
 RUN  git clone https://github.com/creationix/nvm.git "/root/.nvm"
@@ -116,4 +118,4 @@ EXPOSE 80
 
 # ------------------------------------------------------------------------------
 # Start supervisor, define default command.
-CMD ["supervisord", "-c", "/etc/supervisor/supervisord.conf"]
+CMD ["sudo supervisord", "-c", "/etc/supervisor/supervisord.conf"]
