@@ -118,5 +118,4 @@ EXPOSE 80
 
 # ------------------------------------------------------------------------------
 # Start supervisor, define default command.
-# CMD ["supervisord", "-c", "/etc/supervisor/supervisord.conf"]
-CMD ["/bin/bash"]
+CMD ["supervisord", "-c", "/etc/supervisor/supervisord.conf"]
