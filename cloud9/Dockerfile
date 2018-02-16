@@ -63,6 +63,9 @@ RUN  su -c "curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/in
 ADD conf/.bashrc /root/
 ADD conf/.bashrc /home/vchavkov/
 
+RUN  su -c "nvm install 4" - vchavkov
+RUN  su -c "npm install grunt-cli grunt-sass" - vchavkov
+
 # Define mountable directories.
 VOLUME ["/etc/supervisor/conf.d"]
 
@@ -115,4 +118,5 @@ EXPOSE 80
 
 # ------------------------------------------------------------------------------
 # Start supervisor, define default command.
-CMD ["supervisord", "-c", "/etc/supervisor/supervisord.conf"]
+# CMD ["supervisord", "-c", "/etc/supervisor/supervisord.conf"]
+CMD ["/bin/bash"]
