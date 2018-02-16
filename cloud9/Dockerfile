@@ -57,8 +57,7 @@ RUN useradd -m -p vchavkov -s /bin/bash vchavkov
 RUN echo "vchavkov ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
 # install NVM
-WORKDIR /home/vchavkov
-RUN  curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash
+RUN  su -c "curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash" - vchavkov
 
 # .bashrc
 ADD conf/.bashrc /root/
