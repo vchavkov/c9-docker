@@ -57,8 +57,8 @@ RUN useradd -m -p vchavkov -s /bin/bash vchavkov
 RUN echo "vchavkov ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
 # install NVM
-RUN  git clone https://github.com/creationix/nvm.git "/root/.nvm"
-WORKDIR /root/.nvm
+RUN  git clone https://github.com/creationix/nvm.git "/home/vchavkov/.nvm"
+WORKDIR /home/vchavkov/.nvm
 RUN git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" origin`
 
 # .bashrc
@@ -100,11 +100,10 @@ RUN make install
 
 # ------------------------------------------------------------------------------
 # Install Cloud9
-RUN git clone https://github.com/vchavkov/c9-core.git /home/vchavkov/cloud9
-WORKDIR /home/vchavkov/cloud9
+RUN git clone https://github.com/vchavkov/c9-core.git /home/vchavkov/.c9sdk
+WORKDIR /home/vchavkov/.c9sdk
 RUN scripts/install-sdk.sh
-
-RUN sed -i -e 's_127.0.0.1_0.0.0.0_g' /home/vchavkov/cloud9/configs/standalone.js
+RUN sed -i -e 's_127.0.0.1_0.0.0.0_g' configs/standalone.js
 
 # ------------------------------------------------------------------------------
 # Add volumes
