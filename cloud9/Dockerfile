@@ -120,4 +120,4 @@ EXPOSE 80
 
 # ------------------------------------------------------------------------------
 # Start supervisor, define default command.
-CMD ["/usr/bin/nodejs /home/vchavkov/.cloud9/server.js -s standalone --server-config standalone --server-settings standalone --listen 0.0.0.0 --port 80 -w /ghost -a vchavkov:vchavkov"]
+CMD ["/usr/bin/nodejs","/home/vchavkov/.cloud9/server.js","-s","standalone","--server-config","standalone","--server-settings","standalone","--listen","0.0.0.0","--port 80","-w","/ghost","-a","vchavkov:vchavkov"]
