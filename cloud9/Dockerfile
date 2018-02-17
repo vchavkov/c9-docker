@@ -42,7 +42,7 @@ RUN apt-get update && \
 # ------------------------------------------------------------------------------
 # nodejs
 RUN echo "deb http://deb.nodesource.com/node_4.x stretch main" >> /etc/apt/sources.list
-RUN curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -   
+RUN curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
 
 # ------------------------------------------------------------------------------
 # yarn
@@ -101,10 +101,11 @@ RUN make install
 
 # ------------------------------------------------------------------------------
 # Install Cloud9
-RUN git clone https://github.com/vchavkov/c9-core.git /home/vchavkov/.cloud9
+RUN git clone http://git.assistance.bg:8080/c9-core /home/vchavkov/.cloud9
 WORKDIR /home/vchavkov/.cloud9
-RUN scripts/install-sdk.sh
-RUN sed -i -e 's_127.0.0.1_0.0.0.0_g' configs/standalone.js
+RUN ./scripts/install-sdk.sh
+# RUN ./scripts/makestandalone.sh --config ghost --compress --obfuscate --copy-static-resources
+# RUN sed -i -e 's_127.0.0.1_0.0.0.0_g' configs/ghost.js
 
 # ------------------------------------------------------------------------------
 # Add volumes
