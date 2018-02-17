@@ -162,7 +162,7 @@ docker rm -f vchavkov
 # create cloud9 container
 docker run -it -d --restart=always -p 80 --name vchavkov -e C9_USER=vchavkov -e C9_PASS=vchavkov -v /ghost/customer/vchavkov/:/workspace/ vchavkov/c9-docker
 
-docker run -it -d --restart=always -p 80 --name vchavkov -e C9_USER=vchavkov -e C9_PASS=vchavkov -e C9_DEBUG=debug -v /ghost:/ghost 54d498871860
+docker run -it -d --restart=always -p 80 --name vchavkov -e C9_USER=vchavkov -e C9_PASS=vchavkov -e LOG_LEVEL=debug -v /ghost:/ghost 54d498871860
 
 # create debian container
 docker run -it debian /bin/bash
