@@ -103,8 +103,8 @@ RUN make install
 # Install Cloud9
 RUN git clone http://git.assistance.bg:8080/c9-core /home/vchavkov/.cloud9
 WORKDIR /home/vchavkov/.cloud9
-RUN  su -c "curl -o- https://raw.githubusercontent.com/vchavkov/c9-core/scripts/install-sdk.sh | bash" - vchavkov
-RUN sed -i -e 's_127.0.0.1_0.0.0.0_g' configs/ghost.js
+RUN ./scripts/install-sdk.sh
+# RUN sed -i -e 's_127.0.0.1_0.0.0.0_g' configs/ghost.js
 
 # ------------------------------------------------------------------------------
 # Add volumes
