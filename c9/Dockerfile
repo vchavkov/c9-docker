@@ -4,6 +4,7 @@ LABEL maintainer="vchavkov@assistance.bg"
 
 ENV C9_USER=${C9_USER};
 ENV C9_PASS=${C9_PASS};
+#ENV LOG_LEVEL=${LOG_LEVEL};
 
 # Install Supervisor.
 RUN apt-get update && \
@@ -52,11 +53,21 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 # install global nodejs modules
 RUN apt-get update && apt-get -y install nodejs yarn
 
+# create user vchavkov
+RUN useradd -m -p vchavkov -s /bin/bash vchavkov
+RUN echo "vchavkov ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+
 # install NVM
-RUN  curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash
+RUN  su -c "curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash" - vchavkov
 
 # .bashrc
 ADD conf/.bashrc /root/
+ADD conf/.bashrc /home/vchavkov/
+
+RUN su -c "nvm install 4" - vchavkov
+RUN su -c "nvm install 6" - vchavkov
+RUN su -c "nvm alias default 6" - vchavkov
+RUN su -c "npm install -g grunt-cli knex-migrator grunt-sass nodemon" - vchavkov
 
 # Define mountable directories.
 VOLUME ["/etc/supervisor/conf.d"]
@@ -78,6 +89,13 @@ ADD conf/etc/profile.d/ghost.sh /etc/profile.d/
 ADD conf/.ssh /root/.ssh
 RUN chmod 0600 /root/.ssh/id_rsa
 
+ADD conf/.ssh /home/vchavkov/.ssh
+RUN chmod 0600 /home/vchavkov/.ssh/id_rsa
+
+# launch.sh
+ADD conf/launch.sh /home/vchavkov/
+RUN chmod 0755 /home/vchavkov/launch.sh
+
 # ------------------------------------------------------------------------------
 # wachman
 WORkDIR /tmp
@@ -90,15 +108,16 @@ RUN make install
 
 # ------------------------------------------------------------------------------
 # Install Cloud9
-RUN git clone http://git.assistance.bg:8080/c9-core /cloud9
-WORKDIR /cloud9
+RUN git clone http://git.assistance.bg:8080/c9-core /home/vchavkov/.cloud9
+WORKDIR /home/vchavkov/.cloud9
 RUN ./scripts/install-sdk.sh
-RUN sed -i -e 's_127.0.0.1_0.0.0.0_g' configs/ghost.js
+# RUN sed -i -e 's_127.0.0.1_0.0.0.0_g' configs/ghost.js
 
 # ------------------------------------------------------------------------------
 # Add volumes
-RUN mkdir /workspace
-VOLUME /workspace
+RUN mkdir /ghost && \
+mkdir -p /var/log/ghost
+VOLUME /ghost
 
 # ------------------------------------------------------------------------------
 # Expose ports.
@@ -107,3 +126,4 @@ EXPOSE 80
 # ------------------------------------------------------------------------------
 # Start supervisor, define default command.
 CMD ["supervisord", "-c", "/etc/supervisor/supervisord.conf"]
+#CMD ["/home/vchavkov/launch.sh", "${C9_USER}", "${C9_PASS}"]
