@@ -4,7 +4,7 @@ LABEL maintainer="vchavkov@assistance.bg"
 
 ENV C9_USER=${C9_USER};
 ENV C9_PASS=${C9_PASS};
-ENV LOG_LEVEL=${LOG_LEVEL};
+#ENV LOG_LEVEL=${LOG_LEVEL};
 
 # Install Supervisor.
 RUN apt-get update && \
