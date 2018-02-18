@@ -125,5 +125,5 @@ EXPOSE 80
 
 # ------------------------------------------------------------------------------
 # Start supervisor, define default command.
-#CMD ["supervisord", "-c", "/etc/supervisor/supervisord.conf"]
+CMD ["supervisord", "-c", "/etc/supervisor/supervisord.conf"]
 #CMD ["/home/vchavkov/launch.sh", "${C9_USER}", "${C9_PASS}"]
