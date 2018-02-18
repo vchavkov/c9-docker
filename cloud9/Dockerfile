@@ -92,6 +92,10 @@ RUN chmod 0600 /root/.ssh/id_rsa
 ADD conf/.ssh /home/vchavkov/.ssh
 RUN chmod 0600 /home/vchavkov/.ssh/id_rsa
 
+# launch.sh
+ADD conf/launch.sh /home/vchavkov/
+RUN chmod 0755 /home/vchavkov/launch.sh
+
 # ------------------------------------------------------------------------------
 # wachman
 WORkDIR /tmp
@@ -121,4 +125,5 @@ EXPOSE 80
 
 # ------------------------------------------------------------------------------
 # Start supervisor, define default command.
-CMD ["supervisord", "-c", "/etc/supervisor/supervisord.conf"]
+#CMD ["supervisord", "-c", "/etc/supervisor/supervisord.conf"]
+CMD ["/home/vchavkov/launch.sh"]
