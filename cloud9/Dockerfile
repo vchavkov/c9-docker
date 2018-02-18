@@ -64,8 +64,8 @@ RUN  su -c "curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/in
 ADD conf/.bashrc /root/
 ADD conf/.bashrc /home/vchavkov/
 
-RUN  su -c "nvm install 4" - vchavkov
 RUN  su -c "nvm install 6" - vchavkov
+RUN  su -c "nvm install 4" - vchavkov
 RUN  su -c "npm install -g grunt-cli knex-migrator grunt-sass nodemon" - vchavkov
 
 # Define mountable directories.
@@ -77,11 +77,11 @@ RUN update-rc.d supervisor defaults
 # Define working directory.
 WORKDIR /etc/supervisor/conf.d
 # Add supervisord conf
-ADD conf/cloud9.conf /etc/supervisor/conf.d/
+ADD conf/etc/supervisor/conf.d/cloud9.conf /etc/supervisor/conf.d/
 
 # ------------------------------------------------------------------------------
 # enable ghost cli
-ADD conf/ghost.sh /etc/profile.d/
+ADD conf/etc/profile.d/ghost.sh /etc/profile.d/
 
 # ------------------------------------------------------------------------------
 # add ssh keys
