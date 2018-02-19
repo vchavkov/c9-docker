@@ -83,6 +83,7 @@ ADD conf/etc/supervisor/conf.d/cloud9.conf /etc/supervisor/conf.d/
 # ------------------------------------------------------------------------------
 # enable ghost cli
 ADD conf/etc/profile.d/ghost.sh /etc/profile.d/
+RUN chmod 0755 /etc/profile.d/ghost.sh
 
 # ------------------------------------------------------------------------------
 # add ssh keys
