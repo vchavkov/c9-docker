@@ -55,9 +55,17 @@ RUN apt-get update && apt-get -y install nodejs yarn
 # install NVM
 RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash
 
+# ------------------------------------------------------------------------------
 # .bashrc
 ADD conf/.bashrc /root/
 
+# ------------------------------------------------------------------------------
+# .netrc
+ADD conf/.netrc /root/
+RUN chmod 0600 /root/.netrc
+
+# ------------------------------------------------------------------------------
+# install npm global modules
 RUN npm install -g grunt-cli knex-migrator grunt-sass
 
 # Define mountable directories.
@@ -74,6 +82,7 @@ ADD conf/etc/supervisor/conf.d/cloud9.conf /etc/supervisor/conf.d/
 # ------------------------------------------------------------------------------
 # enable ghost cli
 ADD conf/etc/profile.d/ghost.sh /etc/profile.d/
+RUN chmod 0755 /etc/profile.d/ghost.sh
 
 # ------------------------------------------------------------------------------
 # add ssh keys

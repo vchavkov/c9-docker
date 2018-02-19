@@ -7,6 +7,8 @@ fi
 
 DOCKER_IMAGE_ID=${1};
 
+docker rm -f $(docker ps -a -q);
+
 # create cloud9 container
 docker run -it -d --restart=always -p 40000:80 --name vchavkov -e C9_USER=vchavkov -e C9_PASS=aiTh3oop -v /ghost:/workspace ${DOCKER_IMAGE_ID}
 docker run -it -d --restart=always -p 31000:80 --name ndemirev -e C9_USER=ndemirev -e C9_PASS=jo2eeLah -v /ghost/customer:/workspace ${DOCKER_IMAGE_ID}
