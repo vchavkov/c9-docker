@@ -65,6 +65,10 @@ ADD conf/.netrc /root/
 RUN chmod 0600 /root/.netrc
 
 # ------------------------------------------------------------------------------
+# .gitconfig
+ADD conf/.gitconfig /root/
+
+# ------------------------------------------------------------------------------
 # install npm global modules
 RUN npm install -g grunt-cli knex-migrator grunt-sass
 
