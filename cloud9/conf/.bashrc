@@ -16,5 +16,7 @@ alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
 
+export PS1="\W "
+
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
