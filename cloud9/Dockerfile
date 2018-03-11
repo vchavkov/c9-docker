@@ -35,6 +35,8 @@ RUN apt-get update && \
     tcpdump \
     mc \
     zip && \
+    unrar-free && \
+    7zip-full && \
     imagemagick \
     sed -i 's/^\(\[supervisord\]\)$/\1\nnodaemon=true/' /etc/supervisor/supervisord.conf && \
     apt-get clean && \
