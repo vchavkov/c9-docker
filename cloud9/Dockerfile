@@ -36,8 +36,7 @@ RUN apt-get update && \
     mc \
     zip && \
     unrar-free && \
-    7zip-full && \
-    imagemagick \
+    p7zip-full && \
     sed -i 's/^\(\[supervisord\]\)$/\1\nnodaemon=true/' /etc/supervisor/supervisord.conf && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
