@@ -35,6 +35,7 @@ RUN apt-get update && \
     tcpdump \
     mc \
     moreutils \
+    dos2unix \
     zip && \
     sed -i 's/^\(\[supervisord\]\)$/\1\nnodaemon=true/' /etc/supervisor/supervisord.conf && \
     apt-get clean && \
