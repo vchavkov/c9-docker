@@ -34,8 +34,8 @@ RUN apt-get update && \
     nmap \
     tcpdump \
     mc \
+    moreutils \
     zip && \
-    moreutils && \
     sed -i 's/^\(\[supervisord\]\)$/\1\nnodaemon=true/' /etc/supervisor/supervisord.conf && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
