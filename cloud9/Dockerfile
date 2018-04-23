@@ -36,6 +36,7 @@ RUN apt-get update && \
     mc \
     moreutils \
     dos2unix \
+    unrar-free \
     zip && \
     sed -i 's/^\(\[supervisord\]\)$/\1\nnodaemon=true/' /etc/supervisor/supervisord.conf && \
     apt-get clean && \
