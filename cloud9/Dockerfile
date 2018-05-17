@@ -9,8 +9,8 @@ ENV NVM=/root/.nvm/nvm.sh
 # Install Supervisor.
 RUN apt-get update && \
     apt-get dist-upgrade -y && \
+    apt-get -y install apt-utils && \
     apt-get -y install \
-    apt-utils \
     sudo \
     curl \
     wget \
