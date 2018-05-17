@@ -56,7 +56,7 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN apt-get update && apt-get -y install nodejs yarn
 
 # install NVM
-RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash
+RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
 
 # ------------------------------------------------------------------------------
 # .bashrc
@@ -75,8 +75,7 @@ ADD conf/.gitconfig /root/
 # install npm global modules
 RUN /root/.nvm/nvm install 8 && \
 /root/.nvm/nvm alias default 8 && \
-# npm install -g grunt-cli gulp knex-migrator node-sass
-yarn add global -g grunt-cli gulp knex-migrator node-sass
+npm install -g grunt-cli gulp knex-migrator node-sass
 
 # Define mountable directories.
 VOLUME ["/etc/supervisor/conf.d"]
