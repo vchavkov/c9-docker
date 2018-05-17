@@ -7,8 +7,8 @@ ENV C9_PASS=${C9_PASS};
 
 # Install Supervisor.
 RUN apt-get update && \
-    apt-get dist-upgrade -y && \
     apt-get -y install apt-utils && \
+    apt-get dist-upgrade -y && \
     apt-get -y install \
     sudo \
     curl \
@@ -77,7 +77,8 @@ ADD conf/.gitconfig /root/
 
 # ------------------------------------------------------------------------------
 # install npm global modules
-RUN /root/.nvm/nvm.sh install 8 && \
+RUN chmod +x /root/.nvm/nvm.sh && \
+/root/.nvm/nvm.sh install 8 && \
 /root/.nvm/nvm.sh alias default 8 && \
 npm install -g grunt-cli gulp knex-migrator node-sass
 
