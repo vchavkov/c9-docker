@@ -4,9 +4,11 @@ LABEL maintainer="vchavkov@assistance.bg"
 
 ENV C9_USER=${C9_USER};
 ENV C9_PASS=${C9_PASS};
+ENV NVM=/root/.nvm/nvm.sh
 
 # Install Supervisor.
 RUN apt-get update && \
+    apt-get -dist-upgrade && \
     apt-get -y install \
     apt-utils \
     sudo \
@@ -76,8 +78,8 @@ ADD conf/.gitconfig /root/
 
 # ------------------------------------------------------------------------------
 # install npm global modules
-RUN /root/.nvm/nvm install 8 && \
-/root/.nvm/nvm alias default 8 && \
+RUN %(ENV_NVM) install 8 && \
+%(ENV_NVM) alias default 8 && \
 npm install -g grunt-cli gulp knex-migrator node-sass
 
 # Define mountable directories.
