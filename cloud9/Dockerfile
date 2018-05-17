@@ -44,7 +44,7 @@ RUN apt-get update && \
 
 # ------------------------------------------------------------------------------
 # nodejs
-RUN echo "deb http://deb.nodesource.com/node_4.x stretch main" >> /etc/apt/sources.list
+RUN echo "deb http://deb.nodesource.com/node_8.x stretch main" >> /etc/apt/sources.list
 RUN curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
 
 # ------------------------------------------------------------------------------
@@ -73,8 +73,8 @@ ADD conf/.gitconfig /root/
 
 # ------------------------------------------------------------------------------
 # install npm global modules
-RUN nvm install 8 && \
-nvm alias default 8 && \
+RUN /root/.nvm/nvm install 8 && \
+/root/.nvm/nvm alias default 8 && \
 # npm install -g grunt-cli gulp knex-migrator node-sass
 yarn add global -g grunt-cli gulp knex-migrator node-sass
 
