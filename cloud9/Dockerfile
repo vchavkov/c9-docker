@@ -8,6 +8,7 @@ ENV C9_PASS=${C9_PASS};
 # Install Supervisor.
 RUN apt-get update && \
     apt-get -y install \
+    apt-utils \
     sudo \
     curl \
     wget \
