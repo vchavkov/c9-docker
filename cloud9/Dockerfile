@@ -79,9 +79,9 @@ ADD conf/.gitconfig /root/
 # ------------------------------------------------------------------------------
 # install npm global modules
 RUN chmod +x /root/.nvm/nvm.sh && \
-/root/.nvm/nvm.sh install 8 && \
-/root/.nvm/nvm.sh alias default 8 && \
-npm install -g grunt-cli gulp knex-migrator node-sass
+/root/.nvm/nvm.sh install 8.11.2 && \
+/root/.nvm/nvm.sh alias default 8.11.2 && \
+/home/vchavkov/.nvm/versions/node/v8.11.2/bin/npm install -g grunt-cli gulp knex-migrator node-sass
 
 # Define mountable directories.
 VOLUME ["/etc/supervisor/conf.d"]
