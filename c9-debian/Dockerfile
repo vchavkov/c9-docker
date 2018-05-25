@@ -56,24 +56,19 @@ RUN wget -qO - https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 RUN apt-get update && \
 apt-get -y install yarn
 
-# ------------------------------------------------------------------------------
+# install NVM
+RUN  su -c "curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash" - vchavkov
+
 # .bashrc
-ADD conf/.bashrc /root/
+ADD conf/.bashrc /home/vchavkov/
 
-# ------------------------------------------------------------------------------
-# .netrc
-ADD conf/.netrc /root/
-RUN chmod 0600 /root/.netrc
-
-# ------------------------------------------------------------------------------
-# .gitconfig
-ADD conf/.gitconfig /root/
+RUN su -c "nvm install 8" - vchavkov
+RUN su -c "nvm alias default 8" - vchavkov
+RUN su -c "npm install -g grunt-cli gulp knex-migrator sqlite3" - vchavkov
 
 # Determine runlevel and services at startup [BOOT-5180]
 RUN update-rc.d supervisor defaults
 
-# Define working directory.
-WORKDIR /etc/supervisor/conf.d
 # Add supervisord conf
 ADD conf/etc/supervisor/conf.d/cloud9.conf /etc/supervisor/conf.d/
 
@@ -84,8 +79,8 @@ RUN chmod 0755 /etc/profile.d/ghost.sh
 
 # ------------------------------------------------------------------------------
 # add ssh keys
-ADD conf/.ssh /root/.ssh
-RUN chmod 0600 /root/.ssh/id_rsa
+ADD conf/.ssh /home/vchavkov/.ssh
+RUN chmod 0600 /home/vchavkov/id_rsa
 
 # ------------------------------------------------------------------------------
 # wachman
@@ -101,8 +96,9 @@ RUN make install
 # Install Cloud9
 RUN git clone http://git.assistance.bg:8080/c9-core /cloud9
 WORKDIR /cloud9
-RUN ./scripts/install-sdk.sh
-RUN sed -i -e 's_127.0.0.1_0.0.0.0_g' configs/ghost.js
+RUN ./scripts/install-sdk.sh && \
+sed -i -e 's_127.0.0.1_0.0.0.0_g' configs/ghost.js && \
+chown vchavkov. -R /workspace
 
 # ------------------------------------------------------------------------------
 # Add volumes
