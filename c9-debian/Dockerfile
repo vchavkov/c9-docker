@@ -86,7 +86,7 @@ RUN chmod 0755 /etc/profile.d/ghost.sh
 # ------------------------------------------------------------------------------
 # add ssh keys
 ADD conf/.ssh /home/vchavkov/.ssh
-RUN chmod 0600 /home/vchavkov/id_rsa
+RUN chmod 0600 /home/vchavkov/.ssh/id_rsa
 
 # ------------------------------------------------------------------------------
 # wachman
