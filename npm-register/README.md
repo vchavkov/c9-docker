@@ -1,5 +1,5 @@
 # start npm-registry
-docker run -it -d --restart=always -p 3000:3000 --name npm-register <DOCKER_IMAGE_ID>
+docker run -it -d --restart=always -p 3000:3000 --name npm-register -v /npm-register:/npm-register <DOCKER_IMAGE_ID>
 
 Minimal Node.js Docker Images
 -----------------------------

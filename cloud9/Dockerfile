@@ -106,9 +106,9 @@ RUN chmod 0600 /root/.ssh/id_rsa
 
 # ------------------------------------------------------------------------------
 # wachman
-WORkDIR /tmp
+WORKDIR /tmp
 RUN git clone https://github.com/facebook/watchman.git
-WORkDIR /tmp/watchman
+WORKDIR /tmp/watchman
 RUN ./autogen.sh
 RUN ./configure
 RUN make -j 32
