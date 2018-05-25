@@ -10,6 +10,7 @@ RUN mkdir -p /etc/supervisor.d && \
 mkdir -p  /var/log/supervisor && \
 mkdir -p /npm-register/cache
 WORKDIR /npm-register
+VOLUME /npm-register
 
 # Add supervisord conf
 ADD conf/app.ini /etc/supervisor.d/
