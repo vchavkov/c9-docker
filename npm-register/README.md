@@ -1,5 +1,7 @@
 # start npm-register
-docker run -it -d --restart=always -p 3000:3000 --name npm-register -v /opt/data/npm-register:/npm-register <DOCKER_IMAGE_ID>
+docker run -it -d --restart=always -p 3000:3000 --name npm-register <DOCKER_IMAGE_ID>
+
+supervisord -c /etc/supervisord.conf
 
 npm config set registry http://docker.minerva.net:3000
 
