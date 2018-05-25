@@ -15,7 +15,7 @@ WORKDIR /npm-registry
 
 # ------------------------------------------------------------------------------
 # Install npm-registry
-RUN npm install npm-register --save
+RUN npm install -g npm-register
 
 # ------------------------------------------------------------------------------
 # Expose ports.
