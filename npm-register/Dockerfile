@@ -27,4 +27,4 @@ npm install npm-register
 EXPOSE 3000
 
 # Start supervisor, define default command.
-CMD ["supervisord", "-c", "/etc/supervisord.conf"]
+# CMD ["supervisord", "-c", "/etc/supervisord.conf"]
