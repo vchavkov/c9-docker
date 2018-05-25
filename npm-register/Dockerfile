@@ -19,3 +19,6 @@ RUN npm install npm-register --save
 # ------------------------------------------------------------------------------
 # Expose ports.
 EXPOSE 3000
+
+# Start supervisor, define default command.
+CMD ["supervisord", "-c", "/etc/supervisord.conf"]
