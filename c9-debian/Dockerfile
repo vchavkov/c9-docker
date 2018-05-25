@@ -51,13 +51,20 @@ RUN curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
 RUN echo "deb http://dl.yarnpkg.com/debian/ stable main" >> /etc/apt/sources.list
 RUN wget -qO - https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 
-
+# ------------------------------------------------------------------------------
 # install nodejs && yarn
 RUN apt-get update && apt-get -y install nodejs yarn
 
+# ------------------------------------------------------------------------------
+# create user vchavkov
+RUN useradd -m -p vchavkov -s /bin/bash vchavkov
+RUN echo "vchavkov ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+
+# ------------------------------------------------------------------------------
 # install NVM
 RUN  su -c "curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash" - vchavkov
 
+# ------------------------------------------------------------------------------
 # .bashrc
 ADD conf/.bashrc /home/vchavkov/
 
