@@ -2,7 +2,7 @@ FROM mhart/alpine-node
 
 # ------------------------------------------------------------------------------
 # Install supervisor
-RUN apk add --no-cache supervisor
+RUN apk add --no-cache bash bash-doc bash-doc bash-completion git supervisor curl make gcc g++ python linux-headers binutils-gold gnupg libstdc++
 
 # Add supervisord conf
 ADD conf/app.ini /etc/supervisor/conf.d/
