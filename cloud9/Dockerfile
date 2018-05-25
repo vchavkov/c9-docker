@@ -2,9 +2,6 @@
 FROM debian
 LABEL maintainer="vchavkov@assistance.bg"
 
-ENV C9_USER=${C9_USER};
-ENV C9_PASS=${C9_PASS};
-
 # Install Supervisor.
 RUN apt-get update && \
     apt-get -y install apt-utils && \
@@ -46,9 +43,9 @@ RUN apt-get update && \
 
 # ------------------------------------------------------------------------------
 # nodejs
-# RUN echo "deb http://deb.nodesource.com/node_8.x stretch main" >> /etc/apt/sources.list
-# RUN curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
-# RUN apt-get install -y nodejs
+RUN echo "deb http://deb.nodesource.com/node_8.x stretch main" >> /etc/apt/sources.list
+RUN curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
+RUN apt-get install -y nodejs
 
 # ------------------------------------------------------------------------------
 # yarn
@@ -58,10 +55,6 @@ RUN wget -qO - https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 # install global nodejs modules
 RUN apt-get update && \
 apt-get -y install yarn
-
-# install NVM
-# RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
-RUN wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
 
 # ------------------------------------------------------------------------------
 # .bashrc

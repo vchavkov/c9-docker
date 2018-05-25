@@ -1,4 +1,5 @@
 FROM mhart/alpine-node:8
+LABEL maintainer="vchavkov@assistance.bg"
 
 # ------------------------------------------------------------------------------
 # Install supervisor
