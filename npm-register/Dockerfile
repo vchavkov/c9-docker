@@ -10,6 +10,7 @@ ADD conf/app.ini /etc/supervisor/conf.d/
 # ------------------------------------------------------------------------------
 # Add volumes
 RUN mkdir -p /npm-register/cache
+WORKDIR /npm-register
 
 # ------------------------------------------------------------------------------
 # Install npm-registry
