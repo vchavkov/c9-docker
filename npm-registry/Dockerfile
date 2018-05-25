@@ -9,15 +9,13 @@ ADD conf/app.ini /etc/supervisor/conf.d/
 
 # ------------------------------------------------------------------------------
 # Add volumes
-RUN mkdir -p /usr/lib/node_modules && \
-chown nobody. -R /usr/lib/node_modules && \
-mkdir -p /npm-register/cache
+RUN mkdir -p /npm-register/cache
 VOLUME /npm-register
 WORKDIR /npm-register
 
 # ------------------------------------------------------------------------------
 # Install npm-registry
-RUN npm install -g npm-register
+RUN npm install npm-register --save-dev
 
 # ------------------------------------------------------------------------------
 # Expose ports.
