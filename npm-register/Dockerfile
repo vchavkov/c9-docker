@@ -18,11 +18,12 @@ ADD conf/app.ini /etc/supervisor.d/
 # Install npm-registry
 RUN npm install node-gyp && \
 npm install bcrypt && \
-npm install npm-register
+npm install npm-register && \
+/bin/bash
 
 # ------------------------------------------------------------------------------
 # Expose ports.
 EXPOSE 3000
 
 # Start supervisor, define default command.
-CMD ["/bin/bash", "supervisord", "-c", "/etc/supervisord.conf"]
+CMD ["supervisord", "-c", "/etc/supervisord.conf"]
