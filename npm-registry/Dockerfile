@@ -9,7 +9,7 @@ ADD conf/app.ini /etc/supervisor/conf.d/
 
 # ------------------------------------------------------------------------------
 # Add volumes
-RUN mkdri -p /usr/lib/node_modules && \
+RUN mkdir-p /usr/lib/node_modules && \
 chown nobody. -R /usr/lib/node_modules && \
 mkdir -p /npm-register/cache
 VOLUME /npm-register
