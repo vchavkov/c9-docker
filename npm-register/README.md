@@ -5,6 +5,8 @@ supervisord -c /etc/supervisord.conf
 
 npm config set registry http://docker.minerva.net:3000
 
+yarn config set registry http://docker.minerva.net:3000
+
 docker run --name='npm-registry' -d \
   -p 5984:5984 -p 4000:80 \
   -v /opt/data/npm-registry:/var/lib/couchdb \
