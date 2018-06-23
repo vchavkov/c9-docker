@@ -1,6 +1,4 @@
-# FROM alpine:3.4
-# FROM alpine:3.6
-FROM alpine:3.7
+FROM mhart/alpine-node:8
 
 ENV VERSION=v4.8.7 NPM_VERSION=2
 # ENV VERSION=v6.12.3 NPM_VERSION=3
