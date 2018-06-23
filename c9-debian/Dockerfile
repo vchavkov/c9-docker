@@ -43,17 +43,18 @@ RUN apt-get update && \
 
 # ------------------------------------------------------------------------------
 # nodejs
-RUN echo "deb http://deb.nodesource.com/node_8.x stretch main" >> /etc/apt/sources.list
-RUN curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
+#RUN echo "deb http://deb.nodesource.com/node_8.x stretch main" >> /etc/apt/sources.list
+#RUN curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
+#RUN apt-get install -y nodejs
 
 # ------------------------------------------------------------------------------
 # yarn
 RUN echo "deb http://dl.yarnpkg.com/debian/ stable main" >> /etc/apt/sources.list
 RUN wget -qO - https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 
-# ------------------------------------------------------------------------------
-# install nodejs && yarn
-RUN apt-get update && apt-get -y install nodejs yarn
+# install global nodejs modules
+RUN apt-get update && \
+apt-get -y install yarn
 
 # ------------------------------------------------------------------------------
 # create user vchavkov
