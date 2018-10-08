@@ -24,6 +24,9 @@ docker attach <container id>  # then you have root user
 uid=0(root) gid=0(root) groups=10(wheel)
 
 docker run -it --user nobody busybox # CTRL-P/Q to quit
-docker attach <container id>  
+docker attach <container id>
 / $ id
 uid=99(nobody) gid=99(nogroup)
+
+
+docker run -it alpine /bin/sh
