@@ -1,4 +1,5 @@
 FROM frolvlad/alpine-oraclejdk8
+LABEL maintainer="vchavkov@assistance.bg"
 
 env SFTPD_HOME=/opt/sftpd
 env SFTPD_LOG=FILE
@@ -11,7 +12,7 @@ ADD sftp $SFTPD_HOME
 
 # ------------------------------------------------------------------------------
 # Add volumes
-RUN mkdir -p /data/test
+RUN mkdir /data
 VOLUME /data
 
 # ------------------------------------------------------------------------------
