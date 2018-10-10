@@ -9,5 +9,4 @@ docker run -it \
   -p 22222:22222 \
   -v /tmp/data:/data \
   ${DOCKER_IMAGE} \
-#   /bin/sh -c "/opt/sftpd/bin/sftpd.sh run"
-  /bin/sh
+  /bin/sh -c "/opt/sftpd/bin/sftpd.sh run"

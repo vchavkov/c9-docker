@@ -8,12 +8,11 @@ env SFTPD_MEM_MB=64
 
 RUN mkdir -p ${SFTPD_HOME}
 # ADD sftpserver-1.2.3.tar.gz $SFTPD_HOME
-ADD sftp $SFTPD_HOME
+ADD sftpd $SFTPD_HOME
 
 # ------------------------------------------------------------------------------
 # Add volumes
-RUN mkdir /data
-VOLUME /data
+VOLUME $SFTPD_HOME/home
 
 # ------------------------------------------------------------------------------
 # Expose ports.
