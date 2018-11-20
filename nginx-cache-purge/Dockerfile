@@ -4,6 +4,10 @@ LABEL maintainer="vchavkov@assistance.bg"
 ENV NGINX_VERSION=1.9.9
 ENV NGX_CACHE_PURGE_VERSION=2.3
 
+ARG USER=www-data
+ARG PUID=33
+ARG PGID=33
+
 # Install basic packages and build tools
 RUN apt-get update && apt-get install -y \
     wget \
@@ -13,8 +17,14 @@ RUN apt-get update && apt-get install -y \
     libpcre3-dev \
     && apt-get clean
 
-# Get sources
+RUN echo "nameserver 192.169.3.60" > /etc/resolv.conf
 
+# ------------------------------------------------------------------------------
+# create user
+# RUN addgroup -g ${PGID} -S ${USER} && \
+#     adduser -u ${PUID} -S ${USER} -G ${USER}
+
+# Get sources
 RUN cd /tmp && wget http://nginx.org/download/nginx-$NGINX_VERSION.tar.gz http://labs.frickle.com/files/ngx_cache_purge-$NGX_CACHE_PURGE_VERSION.tar.gz && \
     tar -zxvf nginx-$NGINX_VERSION.tar.gz && mv nginx-$NGINX_VERSION nginx && rm nginx-$NGINX_VERSION.tar.gz && \
     tar -zxvf ngx_cache_purge-$NGX_CACHE_PURGE_VERSION.tar.gz && mv ngx_cache_purge-$NGX_CACHE_PURGE_VERSION ngx_cache_purge && rm ngx_cache_purge-$NGX_CACHE_PURGE_VERSION.tar.gz
@@ -50,10 +60,18 @@ RUN mv /usr/local/nginx/html /var/www && \
 RUN ln -sf /dev/stdout /var/log/nginx/access.log && \
     ln -sf /dev/stderr /var/log/nginx/error.log
 
-# COPY etc/nginx /etc/nginx
+# nginx conf files
+COPY etc/nginx /etc/nginx
+
+# ------------------------------------------------------------------------------
+# Add volumes
+RUN mkdir -p /var/cache/nginx/one && \
+    mkdir -p /var/cache/nginx/two && \
+    mkdir -p /var/cache/nginx/three && \
+    chown ${USER}:${USER} -R /var/cache/nginx 
 
 VOLUME ["/var/cache/nginx"]
 
 EXPOSE 80 443
 
-# CMD ["nginx", "-g", "daemon off;"]
+CMD ["nginx", "-g", "daemon off;"]

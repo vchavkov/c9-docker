@@ -5,7 +5,9 @@ mkdir -p ${NGINX_CACHE_DIR}
 
 docker rm -f $(docker ps -a -q);
 
-DOCKER_IMAGE="$(docker build . --no-cache | grep "Successfully built" | cut -d " " -f3)"
+# DOCKER_IMAGE="$(docker build . --no-cache | grep "Successfully built" | cut -d " " -f3)"
+
+DOCKER_IMAGE="$(docker build . | grep "Successfully built" | cut -d " " -f3)"
 
 docker run -it \
   --name nginx \
