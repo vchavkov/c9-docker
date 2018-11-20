@@ -1,28 +1,36 @@
 FROM debian:jessie
 LABEL maintainer="vchavkov@assistance.bg"
 
+ENV DOCKER_IMAGE=""
+ENV VHOST=""
+
 ENV NGINX_VERSION=1.9.9
 ENV NGX_CACHE_PURGE_VERSION=2.3
 
-ARG USER=www-data
-ARG PUID=33
-ARG PGID=33
-
 # Install basic packages and build tools
 RUN apt-get update && apt-get install -y \
-    wget \
     build-essential \
     libssl-dev \
     libpcre3 \
     libpcre3-dev \
-    && apt-get clean
+    curl \
+    wget \
+    htop \
+    dnsutils \
+    sed \
+    vim-tiny && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+# ------------------------------------------------------------------------------
+# configure DNS
 RUN echo "nameserver 192.169.3.60" > /etc/resolv.conf
 
 # ------------------------------------------------------------------------------
-# create user
-# RUN addgroup -g ${PGID} -S ${USER} && \
-#     adduser -u ${PUID} -S ${USER} -G ${USER}
+# configure /etc/hosts
+RUN echo "DOCKER_IMAGE: ${DOCKER_IMAGE}" && \
+echo "VHOST: ${VHOST}" && \
+sed -i -e "s|${DOCKER_IMAGE}|${VHOST}|g" /etc/hosts
 
 # Get sources
 RUN cd /tmp && wget http://nginx.org/download/nginx-$NGINX_VERSION.tar.gz http://labs.frickle.com/files/ngx_cache_purge-$NGX_CACHE_PURGE_VERSION.tar.gz && \

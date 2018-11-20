@@ -9,10 +9,12 @@ docker rm -f $(docker ps -a -q);
 
 DOCKER_IMAGE="$(docker build . | grep "Successfully built" | cut -d " " -f3)"
 
+VHOST=proxy.minerva.net \
+DOCKER_IMAGE=${DOCKER_IMAGE} \
 docker run -it \
-  --name nginx \
-  -p 88:80 \
-  -p 8443:443 \
-  -v $NGINX_CACHE_DIR:/var/cache/nginx \
-  ${DOCKER_IMAGE} \
-  /bin/bash
+--name nginx \
+-p 88:80 \
+-p 8443:443 \
+-v $NGINX_CACHE_DIR:/var/cache/nginx \
+${DOCKER_IMAGE} \
+/bin/bash
