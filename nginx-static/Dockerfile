@@ -10,6 +10,8 @@ COPY etc/nginx /etc/nginx
 
 VOLUME ["/var/cache/nginx"]
 
-EXPOSE 80 443
+EXPOSE 80 443 22
 
-CMD ["nginx", "-g", "daemon off;"]
+# CMD ["nginx", "-g", "daemon off;"]
+
+# CMD ["/usr/sbin/sshd", "-D"]

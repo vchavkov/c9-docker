@@ -12,6 +12,7 @@ NPS_VERSION=1.13.35.1-beta
 
 # Install basic packages and build tools
 apt-get update
+apt-get dist-upgrade -y
 apt-get install -y \
     build-essential \
     zlib1g-dev \
@@ -20,6 +21,7 @@ apt-get install -y \
     libpcre3-dev \
     unzip \
     uuid-dev \
+    openssh-server \
     curl \
     wget \
     htop \
@@ -29,6 +31,22 @@ apt-get install -y \
 
 apt-get clean
 rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+mkdir /var/run/sshd
+echo 'root:mn2111td' | chpasswd
+sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+
+cat /etc/ssh/sshd_config
+
+# SSH login fix. Otherwise user is kicked off after login
+sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
+
+cat /etc/pam.d/sshd
+
+# NOTVISIBLE "in users profile"
+echo "export VISIBLE=now" >> /etc/profile
+
+cat /etc/profile
 
 # Get sources
 cd /tmp

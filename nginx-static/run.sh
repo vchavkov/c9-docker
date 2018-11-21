@@ -1,20 +1,23 @@
 #!/bin/bash
 
-URI="proxy.minerva.net"
+# URI="proxy.minerva.net"
 
 DOCKER_IMAGE="$(cat .docker_image)"
 
 docker rm -f nginx;
 
+# --add-host "${URI}":127.0.0.1 \
+# -it \
+
 docker run \
--it \
+-d \
 --name nginx \
 --hostname=nginx \
---dns=172.31.6.89 \
+--dns=192.168.3.60 \
 --dns-search=minerva.net \
---add-host "${URI}":127.0.0.1 \
 -p 88:80 \
 -p 8443:443 \
+-p 222:22 \
 -v $NGINX_CACHE_DIR:/var/cache/nginx \
 ${DOCKER_IMAGE} \
-/bin/bash
+/usr/sbin/sshd -D
