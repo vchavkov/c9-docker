@@ -1,11 +1,10 @@
 FROM debian:jessie
 LABEL maintainer="vchavkov@assistance.bg"
 
-ENV DOCKER_IMAGE=""
-ENV VHOST=""
+ARG URI="${URI}"
 
-ENV NGINX_VERSION=1.9.9
-ENV NGX_CACHE_PURGE_VERSION=2.3
+ARG NGINX_VERSION=1.9.9
+ARG NGX_CACHE_PURGE_VERSION=2.3
 
 # Install basic packages and build tools
 RUN apt-get update && apt-get install -y \
@@ -21,16 +20,6 @@ RUN apt-get update && apt-get install -y \
     vim-tiny && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
-# ------------------------------------------------------------------------------
-# configure DNS
-RUN echo "nameserver 192.169.3.60" > /etc/resolv.conf
-
-# ------------------------------------------------------------------------------
-# configure /etc/hosts
-RUN echo "DOCKER_IMAGE: ${DOCKER_IMAGE}" && \
-echo "VHOST: ${VHOST}" && \
-sed -i -e "s|${DOCKER_IMAGE}|${VHOST}|g" /etc/hosts
 
 # Get sources
 RUN cd /tmp && wget http://nginx.org/download/nginx-$NGINX_VERSION.tar.gz http://labs.frickle.com/files/ngx_cache_purge-$NGX_CACHE_PURGE_VERSION.tar.gz && \
@@ -76,7 +65,7 @@ COPY etc/nginx /etc/nginx
 RUN mkdir -p /var/cache/nginx/one && \
     mkdir -p /var/cache/nginx/two && \
     mkdir -p /var/cache/nginx/three && \
-    chown ${USER}:${USER} -R /var/cache/nginx 
+    chown www-data:www-data -R /var/cache/nginx
 
 VOLUME ["/var/cache/nginx"]
 
