@@ -5,17 +5,14 @@ COPY ./bin/install.sh /tmp/install.sh
 RUN LC_ALL=C DEBIAN_FRONTEND=noninteractive /tmp/install.sh \
   && rm -rf /var/lib/apt/lists/*
 
-# copy etc
-COPY etc /etc
-
-# configure .bashrc
-ADD .bashrc /root/
+# copy custom files
+COPY ./conf/ /
 
 VOLUME ["/var/cache/nginx"]
 
-EXPOSE 80 443 22 5353
+EXPOSE 80 443 22
 
-ENTRYPOINT ["bin/entrypoint.sh"]
+# ENTRYPOINT ["/entrypoint.sh"]
 
 # CMD ["nginx", "-g", "daemon off;"]
 

@@ -8,16 +8,17 @@ docker rm -f nginx;
 
 # --add-host "${URI}":127.0.0.1 \
 # -it \
+# -d \
+# --dns=127.0.0.1 \
+# --dns-search=minerva.net \
 
 docker run \
--d \
+-it \
 --name nginx \
 --hostname=nginx \
---dns=127.0.0.1 \
---dns-search=minerva.net \
 -p 88:80 \
 -p 8443:443 \
 -p 222:22 \
 -v $NGINX_CACHE_DIR:/var/cache/nginx \
 ${DOCKER_IMAGE} \
-/usr/sbin/sshd -D
+/bin/bash
