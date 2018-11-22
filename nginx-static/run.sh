@@ -13,7 +13,7 @@ docker run \
 -d \
 --name nginx \
 --hostname=nginx \
---dns=192.168.3.60 \
+--dns=127.0.0.1 \
 --dns-search=minerva.net \
 -p 88:80 \
 -p 8443:443 \

@@ -21,7 +21,9 @@ apt-get install -y \
     libpcre3-dev \
     unzip \
     uuid-dev \
+    supervisor \
     openssh-server \
+    dnsmasq \
     curl \
     wget \
     htop \
@@ -36,17 +38,28 @@ mkdir /var/run/sshd
 echo 'root:mn2111td' | chpasswd
 sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 
-cat /etc/ssh/sshd_config
-
 # SSH login fix. Otherwise user is kicked off after login
 sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
-
-cat /etc/pam.d/sshd
 
 # NOTVISIBLE "in users profile"
 echo "export VISIBLE=now" >> /etc/profile
 
-cat /etc/profile
+    echo "listen-address=127.0.0.1
+resolv-file=/etc/resolv.dnsmasq
+cache-size=20000
+domain-needed
+bogus-priv
+no-poll
+strict-order
+log-facility=/var/log/dnsmasq.log
+log-queries
+log-async=25
+" > /etc/dnsmasq.conf
+
+echo "
+nameserver 172.31.6.89
+search minerva.net
+" > /etc/resolv.dnsmasq
 
 # Get sources
 cd /tmp
