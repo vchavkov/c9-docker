@@ -6,7 +6,7 @@ set -x
 
 ROOT_PASS="mn2111td"
 
-NGINX_VERSION=1.15.8s
+NGINX_VERSION=1.15.8
 NGX_CACHE_PURGE_VERSION=2.3
 NGX_CACHE_HEADERS_MORE=0.33
 NPS_VERSION=1.13.35.1-beta
@@ -45,6 +45,7 @@ echo "export VISIBLE=now" >> /etc/profile
 # Get sources
 cd /tmp
 
+# pagespeed-ngx
 wget https://github.com/apache/incubator-pagespeed-ngx/archive/v${NPS_VERSION}.zip
 unzip v${NPS_VERSION}.zip
 nps_dir=$(find . -name "*pagespeed-ngx-${NPS_VERSION}" -type d)
@@ -66,6 +67,7 @@ tar -zxvf nginx-${NGINX_VERSION}.tar.gz && mv nginx-${NGINX_VERSION} nginx && rm
 wget https://github.com/vchavkov/static-assets/raw/master/nginx/ngx_cache_purge-${NGX_CACHE_PURGE_VERSION}.tar.gz
 tar -zxvf ngx_cache_purge-${NGX_CACHE_PURGE_VERSION}.tar.gz && mv ngx_cache_purge-${NGX_CACHE_PURGE_VERSION} ngx_cache_purge && rm ngx_cache_purge-${NGX_CACHE_PURGE_VERSION}.tar.gz
 
+# headers-more-nginx
 wget https://github.com/openresty/headers-more-nginx-module/archive/v${NGX_CACHE_HEADERS_MORE}.tar.gz
 tar -zxvf v${NGX_CACHE_HEADERS_MORE}.tar.gz && mv headers-more-nginx-module-${NGX_CACHE_HEADERS_MORE} ngx_headers_more && rm v${NGX_CACHE_HEADERS_MORE}.tar.gz
 

@@ -3,12 +3,11 @@
 NGINX_CACHE_DIR="/tmp/nginx/cache"
 mkdir -p ${NGINX_CACHE_DIR}
 
-# URI="proxy.minerva.net"
-
 DOCKER_IMAGE="$(cat .docker_image)"
 
 docker rm -f nginx;
 
+# URI="proxy.minerva.net"
 # --add-host "${URI}":127.0.0.1 \
 # -it \
 # -d \
