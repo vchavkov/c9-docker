@@ -10,6 +10,7 @@ NGINX_VERSION=1.15.8
 NGX_CACHE_PURGE_VERSION=2.3
 NGX_CACHE_HEADERS_MORE=0.33
 NPS_VERSION=1.13.35.1-beta
+PS_NGX_EXTRA_FLAGS=""
 
 # Install basic packages and build tools
 apt-get update
