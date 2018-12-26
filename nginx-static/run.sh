@@ -1,5 +1,8 @@
 #!/bin/bash
 
+NGINX_CACHE_DIR="/tmp/nginx/cache"
+mkdir -p ${NGINX_CACHE_DIR}
+
 # URI="proxy.minerva.net"
 
 DOCKER_IMAGE="$(cat .docker_image)"
