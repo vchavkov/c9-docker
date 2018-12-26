@@ -11,8 +11,8 @@ NGX_CACHE_PURGE_VERSION=2.3
 NGX_CACHE_HEADERS_MORE=0.33
 NPS_VERSION=1.13.35.1-beta
 PS_NGX_EXTRA_FLAGS=""
-# NGX_EXTRA_FLAGS="--with-http_gzip_static_module --with-http_ssl_module --without-mail_pop3_module --without-mail_imap_module --without-mail_smtp_module --add-module=${WORK_DIR}/ngx_pagespeed ${PS_NGX_EXTRA_FLAGS} --add-module=${WORK_DIR}/ngx_headers_more --add-module=${WORK_DIR}/ngx_cache_purge"
-NGX_EXTRA_FLAGS="--add-module=${WORK_DIR}/ngx_pagespeed ${PS_NGX_EXTRA_FLAGS} --add-module=${WORK_DIR}/ngx_headers_more --add-module=${WORK_DIR}/ngx_cache_purge"
+NGX_EXTRA_FLAGS="--with-cc-opt='-DNGX_HTTP_HEADERS' --with-http_gzip_static_module --with-http_ssl_module --without-mail_pop3_module --without-mail_imap_module --without-mail_smtp_module --add-module=${WORK_DIR}/ngx_pagespeed ${PS_NGX_EXTRA_FLAGS} --add-module=${WORK_DIR}/ngx_headers_more --add-module=${WORK_DIR}/ngx_cache_purge"
+# NGX_EXTRA_FLAGS="--add-module=${WORK_DIR}/ngx_pagespeed ${PS_NGX_EXTRA_FLAGS} --add-module=${WORK_DIR}/ngx_headers_more --add-module=${WORK_DIR}/ngx_cache_purge"
 
 # Install basic packages and build tools
 apt-get update
