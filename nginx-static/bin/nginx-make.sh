@@ -1,15 +1,8 @@
 #!/bin/bash
 
-exec 2>&1
-set -e
-set -x
-
-ROOT_PASS="mn2111td"
-
 NGINX_VERSION=1.15.6
 NGX_CACHE_PURGE_VERSION=2.3
 NGX_CACHE_HEADERS_MORE=0.33
-
 NPS_VERSION=1.13.35.1-beta
 
 # Install basic packages and build tools
@@ -22,29 +15,7 @@ apt-get install -y \
     libpcre3 \
     libpcre3-dev \
     unzip \
-    uuid-dev \
-    supervisor \
-    openssh-server \
-    dnsmasq \
-    curl \
-    wget \
-    htop \
-    dnsutils \
-    sed \
-    vim-tiny
-
-apt-get clean
-rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
-mkdir /var/run/sshd
-echo "root:${ROOT_PASS}" | chpasswd
-sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config
-
-# SSH login fix. Otherwise user is kicked off after login
-sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
-
-# NOTVISIBLE "in users profile"
-echo "export VISIBLE=now" >> /etc/profile
+    uuid-dev
 
 # Get sources
 cd /tmp
@@ -101,19 +72,3 @@ mv /usr/local/nginx/html /var/www && \
   mkdir -p /etc/nginx/sites-enabled && \
   sed -i 's/root\s*html;.*$/root \/var\/www;/' /etc/nginx/nginx.conf && \
   echo "\ninclude /etc/nginx/conf.d/\*.conf;" >> /etc/nginx/nginx.conf
-
-# Forward request and error logs to docker log collector
-ln -sf /dev/stdout /var/log/nginx/access.log
-ln -sf /dev/stderr /var/log/nginx/error.log
-
-# ------------------------------------------------------------------------------
-# Add volumes
-mkdir -p /var/cache/nginx/one
-mkdir -p /var/cache/nginx/two
-mkdir -p /var/cache/nginx/three
-chown www-data:www-data -R /var/cache/nginx
-
-# cd /
-# rm -rf /root/*
-# rm -rf /tmp/*
-# rm -rf /var/cache/apt/archives/*.deb
