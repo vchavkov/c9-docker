@@ -1,6 +1,6 @@
 #!/bin/bash
 
-IMAGE_TAG="nginx:0.0.1"
+IMAGE_TAG="nginx:1.0.0"
 
 docker build --rm -t ${IMAGE_TAG} . --no-cache
 
