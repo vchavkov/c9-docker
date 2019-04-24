@@ -1,0 +1,36 @@
+version: "2.1"
+services:
+  lamp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+     - "8000:80"
+    volumes:
+     - .:/var/www/html
+  mysql:
+    image: mysql/mysql-server:5.7
+    hostname: ${DB_HOST}
+    container_name: livescore-mysql
+    mem_limit: 256M
+    memswap_limit: 256M
+    expose:
+    - 3306
+    volumes:
+    - livescore-mysql-data:/var/lib/mysql
+    networks:
+    - default
+    environment:
+    - MYSQL_DATABASE=${DB_NAME}
+    - MYSQL_USER=${DB_USER}
+    - MYSQL_PASSWORD=${DB_PASSWORD}
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 10s
+      retries: 5
+
+networks:
+  default:
+
+volumes:
+  livescore-mysql-data:
