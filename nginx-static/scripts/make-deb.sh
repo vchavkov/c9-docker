@@ -10,6 +10,7 @@ NGINX_VERSION=1.15.12
 NGX_CACHE_PURGE_VERSION=2.3
 NGX_CACHE_HEADERS_MORE=0.33
 NPS_VERSION=1.13.35.2-stable
+brotli
 PS_NGX_EXTRA_FLAGS=""
 NGX_EXTRA_FLAGS="--with-cc-opt='-DNGX_HTTP_HEADERS' --with-http_gzip_static_module --with-http_ssl_module --without-mail_pop3_module --without-mail_imap_module --without-mail_smtp_module --add-module=${WORK_DIR}/ngx_pagespeed ${PS_NGX_EXTRA_FLAGS} --add-module=${WORK_DIR}/ngx_headers_more --add-module=${WORK_DIR}/ngx_cache_purge"
 # NGX_EXTRA_FLAGS="--add-module=${WORK_DIR}/ngx_pagespeed ${PS_NGX_EXTRA_FLAGS} --add-module=${WORK_DIR}/ngx_headers_more --add-module=${WORK_DIR}/ngx_cache_purge"
@@ -66,6 +67,10 @@ tar -zxvf ngx_cache_purge-${NGX_CACHE_PURGE_VERSION}.tar.gz && mv ngx_cache_purg
 # headers-more-nginx
 wget https://github.com/openresty/headers-more-nginx-module/archive/v${NGX_CACHE_HEADERS_MORE}.tar.gz
 tar -zxvf v${NGX_CACHE_HEADERS_MORE}.tar.gz && mv headers-more-nginx-module-${NGX_CACHE_HEADERS_MORE} ngx_headers_more && rm v${NGX_CACHE_HEADERS_MORE}.tar.gz
+
+# Brotli compression
+wget https://github.com/google/ngx_brotli/archive/master.zip
+unzip v${NPS_VERSION}.zip
 
 # clean up
 rm -rf *".zip"*
